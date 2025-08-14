@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparkNest - L'étincelle qui donne vie à vos idées numériques</title>
+
+    <!-- Favicon pour une touche pro -->
+    <link rel="icon" href="https://placehold.co/32x32/5d5dff/ffffff?text=TN" type="image/png">
+
+    <!-- Préconnexion pour les ressources externes (performance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts - Police 'Inter' pour une typographie moderne -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Intégration de Font Awesome pour des icônes professionnelles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Intégration de Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Meta Description SEO de base -->
+    <meta name="description" content="SparkNest - Développement web, mobile, desktop, web design UX/UI, SEO et marketing digital. Transformons vos idées en solutions numériques performantes.">
+    <meta name="keywords" content="développement web, développement mobile, applications desktop, web design, UX UI, SEO, marketing digital, startup, Cameroun, Afrique, Yaoundé, Douala">
+
+    <style>
+        /*
+         * ======================================
+         * CSS Personnalisé (pour des ajouts non gérés par Tailwind directement)
+         * ======================================
+         */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Empêche le défilement horizontal */
+        }
+        .hero-background {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1935&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Effet Parallax subtil sur l'image du Héro */
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Style pour le message de feedback du formulaire */
+        #form-feedback {
+            display: none;
+            padding: 0.75rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+        #form-feedback.success {
+            background-color: #d1fae5; /* vert pâle */
+            color: #065f46; /* vert foncé */
+            display: block;
+        }
+        #form-feedback.error {
+            background-color: #fee2e2; /* rouge pâle */
+            color: #991b1b; /* rouge foncé */
+            display: block;
+        }
+
+        /* Styles spécifiques pour le menu mobile */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 49; /* Juste en dessous de la navbar */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .mobile-menu-overlay a {
+            color: white;
+            font-size: 2rem;
+            padding: 1rem 0;
+            opacity: 0; /* Pour l'animation d'entrée */
+            transform: translateY(20px); /* Pour l'animation d'entrée */
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .mobile-menu-overlay.open a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-menu-overlay.open a:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-menu-overlay.open a:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-menu-overlay.open a:nth-child(4) { transition-delay: 0.4s; }
+        .mobile-menu-overlay.open a:nth-child(5) { transition-delay: 0.5s; }
+        .mobile-menu-overlay.open a:nth-child(6) { transition-delay: 0.6s; }
+        .mobile-menu-overlay.open a:nth-child(7) { transition-delay: 0.7s; }
+
+        /* Scroll Progress Indicator */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background-color: var(--primary-color);
+            z-index: 1001; /* Au-dessus de la navbar */
+            transition: width 0.1s linear;
+        }
+
+        /* Bouton Scroll-to-Top */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            z-index: 999;
+        }
+        #scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Icône Background pour Service Cards */
+        .service-card i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #e0e7ff; /* Couleur de fond pour l'icône */
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Styles for About Section cards */
+        .about-card {
+            display: flex;
+            align-items: flex-start; /* Align items to the top */
+            gap: 1rem; /* Space between icon and text */
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .about-card i {
+            font-size: 2.5rem; /* Larger icons */
+            color: #2563eb; /* Blue color for icons */
+            flex-shrink: 0; /* Prevent icon from shrinking */
+            margin-top: 0.25rem; /* Adjust icon vertical alignment */
+        }
+
+        /* Styles for Startup Section cards */
+        .startup-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        .startup-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .startup-card i {
+            font-size: 3.5rem;
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-700">
+
+    <!-- Barre de progression de défilement -->
+    <div id="scroll-progress"></div>
+
+    <!-- Section Header et Navigation -->
+    <header class="header hero-background relative text-white py-24 md:py-32 lg:py-48 flex flex-col justify-center items-center">
+        <!-- Barre de navigation fixe et responsive -->
+        <nav id="navbar" class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-70 py-4 shadow-lg z-50 transition-all duration-300 ease-in-out">
+            <div class="container mx-auto flex justify-between items-center px-4">
+                <a href="#" class="text-3xl md:text-4xl font-extrabold text-blue-400 hover:text-blue-300 transition-colors duration-300 transform hover:scale-105 ease-in-out">
+                    <span class="inline-block relative">
+                        SparkNest
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </span>
+                </a>
+
+                <!-- Bouton Hamburger pour mobile -->
+                <button id="hamburger-button" class="md:hidden text-white text-2xl focus:outline-none" aria-label="Ouvrir le menu de navigation" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Liens de navigation pour desktop -->
+                <div class="hidden md:flex nav-links space-x-6 md:space-x-8">
+                    <a href="#about" class="nav-item text-lg font-medium text-white hover:text-blue-400 transition-colors duration-300 relative group">
+                        À Propos
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </a>
+                    <a href="#services" class="nav-item text-lg font-medium text-white hover:text-blue-400 transition-colors duration-300 relative group">
+                        Services
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </a>
+                    <a href="#portfolio" class="nav-item text-lg font-medium text-white hover:text-blue-400 transition-colors duration-300 relative group">
+                        Portfolio
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </a>
+                    <a href="#process" class="nav-item text-lg font-medium text-white hover:text-blue-400 transition-colors duration-300 relative group">
+                        Notre Processus
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </a>
+                    <a href="#testimonials" class="nav-item text-lg font-medium text-white hover:text-blue-400 transition-colors duration-300 relative group">
+                        Témoignages
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="nav-item text-lg font-medium text-white hover:text-blue-400 transition-colors duration-300 relative group">
+                        Contact
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:w-full"></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Overlay du menu mobile -->
+        <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+            <a href="#about" class="text-white hover:text-blue-400 transition-colors duration-300">À Propos</a>
+            <a href="#services" class="text-white hover:text-blue-400 transition-colors duration-300">Services</a>
+            <a href="#portfolio" class="text-white hover:text-blue-400 transition-colors duration-300">Portfolio</a>
+            <a href="#process" class="text-white hover:text-blue-400 transition-colors duration-300">Notre Processus</a>
+            <a href="#testimonials" class="text-white hover:text-blue-400 transition-colors duration-300">Témoignages</a>
+            <a href="#contact" class="text-white hover:text-blue-400 transition-colors duration-300">Contact</a>
+        </div>
+
+        <div class="container mx-auto text-center px-4 pt-16">
+            <!-- Titre du Héro plus impactant et responsive -->
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 animate-fade-in-up">
+                L'étincelle qui donne vie à vos idées numériques.
+            </h1>
+            <!-- Description du Héro affinée et responsive -->
+            <p class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-8 animate-fade-in-up delay-200">
+                Nous construisons des solutions web, mobiles et desktop sur mesure, alliant design élégant, performance et visibilité pour propulser votre succès.
+            </p>
+            <!-- Bouton CTA amélioré avec ombre et animation -->
+            <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                Commencer un projet <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section "À Propos" -->
+        <section id="about" class="py-16 md:py-24 bg-gradient-to-br from-white to-blue-50 opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Qui Sommes-Nous ?</h2>
+                <div class="flex flex-col lg:flex-row items-center justify-center gap-12">
+                    <div class="lg:w-1/2 text-left">
+                        <p class="text-lg leading-relaxed mb-6 text-gray-700">
+                            Chez <strong class="text-blue-600">SparkNest</strong>, nous sommes une équipe passionnée et dévouée à la création de solutions numériques innovantes. Nous croyons que chaque grande idée mérite d'être transformée en une expérience digitale exceptionnelle.
+                        </p>
+                        <!-- Mission, Vision, Valeurs dans la section À Propos -->
+                        <h3 class="text-2xl font-semibold mb-3 text-gray-800">Notre Mission</h3>
+                        <p class="text-lg leading-relaxed mb-6 text-gray-700">
+                            Accompagner les entreprises et les startups dans leur transformation digitale en offrant des solutions web, mobile et desktop robustes, esthétiques et axées sur la performance.
+                        </p>
+                        <h3 class="text-2xl font-semibold mb-6 text-gray-800">Nos Valeurs</h3>
+                        <div class="space-y-4">
+                            <div class="about-card">
+                                <i class="fas fa-lightbulb"></i>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-1">Innovation</h4>
+                                    <p class="text-gray-600">Toujours à la pointe des technologies pour des solutions uniques.</p>
+                                </div>
+                            </div>
+                            <div class="about-card">
+                                <i class="fas fa-handshake"></i>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-1">Partenariat</h4>
+                                    <p class="text-gray-600">Construire des relations solides et durables basées sur la confiance mutuelle.</p>
+                                </div>
+                            </div>
+                            <div class="about-card">
+                                <i class="fas fa-medal"></i>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-1">Excellence</h4>
+                                    <p class="text-gray-600">Engagement envers la qualité supérieure et la rigueur à chaque étape du projet.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 flex justify-center items-center p-4">
+                        <!-- Remplacé l'image par une image Unsplash plus pertinente -->
+                        <img src="https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=2070&auto=format&fit=crop" alt="Image d'une équipe collaborant" class="rounded-lg shadow-xl max-w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section "Pourquoi Nous Choisir ?" -->
+        <section id="why-choose-us" class="py-16 md:py-24 bg-gray-100 opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Pourquoi Choisir SparkNest ?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center">
+                        <i class="fas fa-lightbulb text-5xl text-blue-600 mb-6"></i>
+                        <h3 class="text-2xl font-semibold mb-3 text-gray-800">Approche Innovante</h3>
+                        <p class="text-gray-600">Nous explorons les dernières technologies pour offrir des solutions uniques et tournées vers l'avenir.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center">
+                        <i class="fas fa-handshake text-5xl text-blue-600 mb-6"></i>
+                        <h3 class="text-2xl font-semibold mb-3 text-gray-800">Partenariat Durable</h3>
+                        <p class="text-gray-600">Votre succès est notre priorité. Nous travaillons main dans la main avec vous à chaque étape.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center">
+                        <i class="fas fa-medal text-5xl text-blue-600 mb-6"></i>
+                        <h3 class="text-2xl font-semibold mb-3 text-gray-800">Expertise Dédiée</h3>
+                        <p class="text-gray-600">Notre équipe, bien que jeune, est composée d'experts passionnés et hautement qualifiés dans chaque domaine.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nouvelle Section "Pour les Startups" -->
+        <section id="startup" class="py-16 md:py-24 bg-blue-50 opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Accélérez Votre Startup avec SparkNest</h2>
+                <p class="text-lg text-center text-gray-700 max-w-3xl mx-auto mb-12">
+                    Chez SparkNest, nous comprenons les défis uniques des startups. Nous vous aidons à transformer vos idées novatrices en produits numériques performants et évolutifs.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="startup-card">
+                        <i class="fas fa-rocket text-blue-600"></i>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Développement MVP Rapide</h3>
+                        <p class="text-gray-600">Lancez votre Produit Minimum Viable rapidement pour tester votre marché et valider votre concept avec agilité.</p>
+                    </div>
+                    <div class="startup-card">
+                        <i class="fas fa-chart-line text-blue-600"></i>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Solutions Scalables</h3>
+                        <p class="text-gray-600">Nous construisons des architectures robustes et évolutives, prêtes à accompagner votre croissance exponentielle.</p>
+                    </div>
+                    <div class="startup-card">
+                        <i class="fas fa-hand-holding-usd text-blue-600"></i>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2">Accompagnement Stratégique</h3>
+                        <p class="text-gray-600">Bénéficiez de nos conseils experts en UX/UI, SEO et stratégie digitale pour maximiser votre impact.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
+                        Parlez-nous de votre projet startup <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Section Services -->
+        <section id="services" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-center">
+                        <i class="fas fa-laptop-code text-5xl text-blue-600 mb-6 block mx-auto"></i>
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Développement Web</h3>
+                        <p class="text-gray-600">Création de sites vitrine, plateformes e-commerce robustes et applications web complexes sur mesure. Nous maîtrisons les dernières technologies pour une performance optimale.</p>
+                    </div>
+                    <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-center">
+                        <i class="fas fa-mobile-alt text-5xl text-blue-600 mb-6 block mx-auto"></i>
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Développement Mobile</h3>
+                        <p class="text-gray-600">Conception et développement d'applications iOS et Android, natives ou multiplateformes, offrant une expérience utilisateur fluide et intuitive.</p>
+                    </div>
+                    <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-center">
+                        <i class="fas fa-drafting-compass text-5xl text-blue-600 mb-6 block mx-auto"></i>
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Web Design UX/UI</h3>
+                        <p class="text-gray-600">Des designs visuellement captivants et une ergonomie pensée pour l'utilisateur. Nous transformons les idées en interfaces intuitives et attrayantes.</p>
+                    </div>
+                    <div class="service-card bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 text-center">
+                        <i class="fas fa-chart-line text-5xl text-blue-600 mb-6 block mx-auto"></i>
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">SEO & Marketing Digital</h3>
+                        <p class="text-gray-600">Améliorez votre visibilité en ligne, générez du trafic qualifié et convertissez vos prospects grâce à nos stratégies SEO et de marketing digital personnalisées.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section "Nos Technologies" -->
+        <section id="tech-stack" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Notre Stack Technologique</h2>
+                <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                    Nous utilisons les technologies les plus robustes et modernes pour garantir la performance et la scalabilité de vos projets.
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center justify-center">
+                    <div class="text-center">
+                        <i class="fab fa-react text-6xl text-blue-500 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">React</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fab fa-node-js text-6xl text-green-600 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">Node.js</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fab fa-css3-alt text-6xl text-blue-600 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">CSS3</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fab fa-js text-6xl text-yellow-400 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">JavaScript</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fab fa-wordpress text-6xl text-blue-700 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">WordPress</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-database text-6xl text-gray-500 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">Bases de Données</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fab fa-figma text-6xl text-purple-600 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">Figma</p>
+                    </div>
+                     <div class="text-center">
+                        <i class="fab fa-react text-6xl text-blue-700 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">React Native</p>
+                    </div>
+                     <div class="text-center">
+                        <i class="fab fa-php text-6xl text-purple-600 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">PHP</p>
+                    </div>
+                     <div class="text-center">
+                        <i class="fab fa-java text-6xl text-purple-600 mb-2"></i>
+                        <p class="text-gray-700 font-semibold">java</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Portfolio -->
+        <section id="portfolio" class="py-16 md:py-24 bg-gray-50 opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Réalisations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg group">
+                        <img src="./Screenshot_2025-06-30-15-08-19-851_com.hidari_dev.app.jpg" alt="Image of Mobile App Project" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-300 ease-in-out" loading="lazy">
+                        <div class="portfolio-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-4 opacity-0 transition-opacity duration-300 ease-in-out transform translate-y-full group-hover:translate-y-0">
+                            <h4 class="text-2xl font-bold mb-2">App web / mobile de prise de commande</h4>
+                            <p class="text-center text-gray-300">Développement d'une application de prise de commande pour les restaurants </p>
+                            <a href="" class="mt-4 text-blue-400 hover:text-blue-300 font-semibold">Voir le projet <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg group">
+                        <img src="./" alt="Image of E-commerce Website Project" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-300 ease-in-out" loading="lazy">
+                        <div class="portfolio-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-4 opacity-0 transition-opacity duration-300 ease-in-out transform translate-y-full group-hover:translate-y-0">
+                            <h4 class="text-2xl font-bold mb-2">Site Vitrine & Branding</h4>
+                            <p class="text-center text-gray-300">Conception graphique et développement web pour une présence en ligne percutante.</p>
+                            <a href="#" class="mt-4 text-blue-400 hover:text-blue-300 font-semibold">Voir le projet <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg group">
+                        <img src="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2047&auto=format&fit=crop" alt="Image of Desktop Software Project" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-300 ease-in-out" loading="lazy">
+                        <div class="portfolio-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-4 opacity-0 transition-opacity duration-300 ease-in-out transform translate-y-full group-hover:translate-y-0">
+                            <h4 class="text-2xl font-bold mb-2">Application Desktop Métier</h4>
+                            <p class="text-center text-gray-300">Développement d'un logiciel sur mesure pour optimiser les processus internes d'une entreprise.</p>
+                            <a href="#" class="mt-4 text-blue-400 hover:text-blue-300 font-semibold">Voir le projet <i class="fas fa-external-link-alt ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section des Statistiques avec animation de comptage -->
+        <section id="stats" class="py-16 md:py-24 bg-blue-600 text-white opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">Nos Chiffres Clés</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="text-center p-6 bg-blue-700 rounded-lg shadow-md">
+                        <i class="fas fa-users text-5xl mb-4"></i>
+                        <p class="text-5xl font-extrabold" data-counter-target="10">0</p>
+                        <p class="text-xl font-medium mt-2">Clients Satisfaits</p>
+                    </div>
+                    <div class="text-center p-6 bg-blue-700 rounded-lg shadow-md">
+                        <i class="fas fa-project-diagram text-5xl mb-4"></i>
+                        <p class="text-5xl font-extrabold" data-counter-target="10">0</p>
+                        <p class="text-xl font-medium mt-2">Projets Réalisés</p>
+                    </div>
+                    <div class="text-center p-6 bg-blue-700 rounded-lg shadow-md">
+                        <i class="fas fa-award text-5xl mb-4"></i>
+                        <p class="text-5xl font-extrabold" data-counter-target="2">0</p>
+                        <p class="text-xl font-medium mt-2">Années d'Expérience</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section "Notre Processus" -->
+        <section id="process" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Notre Processus de Travail</h2>
+                <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                    Nous suivons une méthodologie agile et collaborative pour garantir le succès et la transparence de chaque projet.
+                </p>
+                <div class="relative flex flex-col md:flex-row justify-center items-start md:space-x-8">
+                    <!-- Ligne de progression pour desktop -->
+                    <div class="hidden md:block absolute top-1/4 left-0 right-0 h-1 bg-blue-200 mx-auto w-3/4"></div>
+
+                    <div class="process-step relative flex flex-col items-center mb-10 md:mb-0 md:w-1/4 text-center">
+                        <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 z-10 shadow-lg">1</div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Analyse & Stratégie</h3>
+                        <p class="text-gray-600">Comprendre vos besoins, analyser le marché et définir une feuille de route claire.</p>
+                    </div>
+                    <div class="process-step relative flex flex-col items-center mb-10 md:mb-0 md:w-1/4 text-center">
+                        <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 z-10 shadow-lg">2</div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Design & Prototypage</h3>
+                        <p class="text-gray-600">Création de maquettes, prototypes UX/UI et validation du design avec vous.</p>
+                    </div>
+                    <div class="process-step relative flex flex-col items-center mb-10 md:mb-0 md:w-1/4 text-center">
+                        <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 z-10 shadow-lg">3</div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Développement Agile</h3>
+                        <p class="text-gray-600">Développement par itérations courtes, tests rigoureux et intégration continue.</p>
+                    </div>
+                    <div class="process-step relative flex flex-col items-center md:w-1/4 text-center">
+                        <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mb-4 z-10 shadow-lg">4</div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Lancement & Suivi</h3>
+                        <p class="text-gray-600">Déploiement, optimisation SEO et support post-lancement pour votre succès.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Témoignages -->
+        <section id="testimonials" class="py-16 md:py-24 bg-gray-100 opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Ce que disent nos clients</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    <div class="testimonial-card bg-white p-8 rounded-lg shadow-md border-t-4 border-blue-500 flex flex-col items-center text-center">
+                        <i class="fas fa-quote-left text-4xl text-blue-400 mb-4"></i>
+                        <p class="text-lg italic text-gray-600 mb-6">"SparkNest a transformé notre vision en une réalité numérique époustouflante. Leur expertise en web design et développement mobile est inégalée. Un vrai partenariat !"</p>
+                        <p class="font-semibold text-gray-800">- Jeanne Dubois, CEO de InnovCo</p>
+                        <div class="flex mt-4">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div class="testimonial-card bg-white p-8 rounded-lg shadow-md border-t-4 border-blue-500 flex flex-col items-center text-center">
+                        <i class="fas fa-quote-left text-4xl text-blue-400 mb-4"></i>
+                        <p class="text-lg italic text-gray-600 mb-6">"Leur approche SEO a propulsé notre site en tête des résultats. Grâce à SparkNest, nous avons doublé notre trafic organique en moins de 6 mois. Hautement recommandé !"</p>
+                        <p class="font-semibold text-gray-800">- Marc Dupont, Directeur Marketing chez GlobalTech</p>
+                        <div class="flex mt-4">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section "Notre Équipe" -->
+        <section id="team" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Notre Équipe</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="team-member bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                        <img src="https://placehold.co/150x150/5d5dff/ffffff?text=CD" alt="Chris Développeur" class="rounded-full w-32 h-32 object-cover mx-auto mb-4 border-4 border-blue-300" loading="lazy">
+                        <h3 class="text-xl font-semibold text-gray-800">Chris</h3>
+                        <p class="text-blue-600 font-medium mb-3">Développeur</p>
+                        <p class="text-gray-600 text-sm">Passionné par le code propre et les architectures web performantes.</p>
+                    </div>
+                    <div class="team-member bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                        <img src="https://placehold.co/150x150/4cceac/ffffff?text=ID" alt="Idriss Développeur" class="rounded-full w-32 h-32 object-cover mx-auto mb-4 border-4 border-blue-300" loading="lazy">
+                        <h3 class="text-xl font-semibold text-gray-800">Idriss</h3>
+                        <p class="text-blue-600 font-medium mb-3">Développeur</p>
+                        <p class="text-gray-600 text-sm">Spécialiste du développement mobile et des expériences utilisateur fluides.</p>
+                    </div>
+                    <div class="team-member bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                        <img src="https://placehold.co/150x150/ff7e5f/ffffff?text=MD" alt="Miguel Designer" class="rounded-full w-32 h-32 object-cover mx-auto mb-4 border-4 border-blue-300" loading="lazy">
+                        <h3 class="text-xl font-semibold text-gray-800">Miguel</h3>
+                        <p class="text-blue-600 font-medium mb-3">Designer UX/UI</p>
+                        <p class="text-gray-600 text-sm">Créateur de designs intuitifs et d'interfaces visuellement captivantes.</p>
+                    </div>
+                    <div class="team-member bg-gray-50 p-6 rounded-lg shadow-md text-center">
+                        <img src="https://placehold.co/150x150/ffc107/ffffff?text=DM" alt="Duchelle Marketing" class="rounded-full w-32 h-32 object-cover mx-auto mb-4 border-4 border-blue-300" loading="lazy">
+                        <h3 class="text-xl font-semibold text-gray-800">Duchelle</h3>
+                        <p class="text-blue-600 font-medium mb-3">Responsable Marketing</p>
+                        <p class="text-gray-600 text-sm">Experte en stratégies de marketing digital et acquisition de trafic qualifié.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section FAQ (simple accordéon) -->
+        <section id="faq" class="py-16 md:py-24 bg-gray-100 opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Questions Fréquemment Posées</h2>
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <div class="faq-item bg-white p-6 rounded-lg shadow-md cursor-pointer">
+                        <div class="faq-question flex justify-between items-center text-xl font-semibold text-gray-800">
+                            <span>Quel est le coût de développement d'un site web ?</span>
+                            <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                        </div>
+                        <div class="faq-answer mt-4 text-gray-600 hidden">
+                            <p>Le coût varie considérablement en fonction de la complexité du projet, des fonctionnalités requises et du type de design. Nous offrons des devis personnalisés après une analyse approfondie de vos besoins.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item bg-white p-6 rounded-lg shadow-md cursor-pointer">
+                        <div class="faq-question flex justify-between items-center text-xl font-semibold text-gray-800">
+                            <span>Combien de temps faut-il pour créer une application mobile ?</span>
+                            <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                        </div>
+                        <div class="faq-answer mt-4 text-gray-600 hidden">
+                            <p>La durée dépend de la complexité de l'application, du nombre de fonctionnalités et des plateformes ciblées (iOS, Android). Un projet simple peut prendre quelques semaines, tandis qu'une application complexe peut prendre plusieurs mois.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item bg-white p-6 rounded-lg shadow-md cursor-pointer">
+                        <div class="faq-question flex justify-between items-center text-xl font-semibold text-gray-800">
+                            <span>Proposez-vous un support après le lancement ?</span>
+                            <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                        </div>
+                        <div class="faq-answer mt-4 text-gray-600 hidden">
+                            <p>Oui, absolument ! Nous offrons des services de maintenance, de support technique et d'évolutions pour garantir que votre solution reste performante et à jour après son lancement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section "Blog / Actualités" (Placeholder) -->
+        <section id="blog" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Actualités & Articles</h2>
+                <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto mb-8">
+                    Restez informé des dernières tendances du développement web, mobile et du marketing digital.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="blog-post bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://placehold.co/400x250/5d5dff/ffffff?text=Article+1" alt="Article de blog 1" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Les Tendances du Web Design en 2025</h3>
+                            <p class="text-gray-600 text-sm mb-4">Découvrez les styles et fonctionnalités qui façonneront l'avenir du design web.</p>
+                            <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Lire l'article <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                        </div>
+                    </div>
+                    <div class="blog-post bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://placehold.co/400x250/4cceac/ffffff?text=Article+2" alt="Article de blog 2" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Comment optimiser votre SEO local ?</h3>
+                            <p class="text-gray-600 text-sm mb-4">Des astuces pratiques pour améliorer votre visibilité dans les recherches locales.</p>
+                            <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Lire l'article <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                        </div>
+                    </div>
+                    <div class="blog-post bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <img src="https://placehold.co/400x250/ff7e5f/ffffff?text=Article+3" alt="Article de blog 3" class="w-full h-48 object-cover" loading="lazy">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">L'importance de l'UX dans les applications mobiles</h3>
+                            <p class="text-gray-600 text-sm mb-4">Pourquoi une bonne expérience utilisateur est cruciale pour le succès de votre app.</p>
+                            <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Lire l'article <i class="fas fa-arrow-right ml-1 text-sm"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="cta-button">Voir tous les articles</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact" class="py-16 md:py-24 bg-gray-50 opacity-0 transition-all duration-1000 ease-out">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Contactez-nous</h2>
+                <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto mb-8">
+                    Prêt à donner vie à votre projet ? Remplissez le formulaire ci-dessous et l'un de nos experts vous contactera rapidement.
+                </p>
+                <form id="contact-form" class="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg">
+                    <div class="mb-6">
+                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom complet</label>
+                        <input type="text" id="name" name="name" placeholder="Votre nom et prénom" required
+                               class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 peer"
+                               aria-label="Nom complet">
+                        <p class="text-red-500 text-xs italic mt-1 hidden" id="name-error">Veuillez entrer votre nom.</p>
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Adresse E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required
+                               class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 peer"
+                               aria-label="Adresse e-mail">
+                        <p class="text-red-500 text-xs italic mt-1 hidden" id="email-error">Veuillez entrer une adresse email valide.</p>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Votre Message</label>
+                        <textarea id="message" name="message" placeholder="Décrivez votre projet et vos besoins..." rows="6" required
+                                  class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 peer"
+                                  aria-label="Votre message"></textarea>
+                        <p class="text-red-500 text-xs italic mt-1 hidden" id="message-error">Veuillez entrer un message.</p>
+                    </div>
+                    <!-- Bouton d'envoi avec icône et état de chargement -->
+                    <button type="submit" id="submit-button"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full w-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
+                        <i class="fas fa-paper-plane mr-2"></i> Envoyer le message
+                    </button>
+                    <!-- Message de feedback pour le formulaire (succès/erreur) -->
+                    <div id="form-feedback" class="text-center"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <!-- Liens sociaux dans le footer -->
+                <a href="#" class="text-gray-400 hover:text-white mx-3 text-2xl transition-colors duration-300" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white mx-3 text-2xl transition-colors duration-300" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white mx-3 text-2xl transition-colors duration-300" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+            <!-- Contact Info in Footer -->
+            <p class="text-gray-400 mb-2"><i class="fas fa-map-marker-alt mr-2"></i> Douala, Littoral Region, Cameroun</p>
+            <p class="text-gray-400 mb-2"><i class="fas fa-phone mr-2"></i> +237 678261699</p>
+            <p class="text-gray-400 mb-4"><i class="fas fa-envelope mr-2"></i> contact@sparknest.com</p>
+
+            <!-- Année dynamique pour le copyright -->
+            <p class="text-gray-400 text-sm">&copy; <span id="current-year"></span> SparkNest. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Bouton Scroll-to-Top -->
+    <div id="scroll-to-top" class="fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg cursor-pointer text-2xl flex items-center justify-center transition-all duration-300 ease-in-out">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!--
+     * ======================================
+     * JavaScript - Fonctionnalités du Site
+     * ======================================
+     */
+-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling pour tous les liens internes
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    // Empêche le comportement de lien par défaut si c'est une ancre interne
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start' // Défilement vers le haut de l'élément
+                            });
+                            // Ferme le menu mobile si ouvert après un clic
+                            if (mobileMenuOverlay.classList.contains('open')) {
+                                toggleMobileMenu();
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Gestion du menu Hamburger (Responsive)
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const body = document.body; // Pour empêcher le défilement du body
+
+            function toggleMobileMenu() {
+                mobileMenuOverlay.classList.toggle('open');
+                const isOpen = mobileMenuOverlay.classList.contains('open');
+                hamburgerButton.setAttribute('aria-expanded', isOpen);
+                hamburgerButton.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>'; // Change l'icône
+                body.style.overflow = isOpen ? 'hidden' : ''; // Empêche le défilement du body
+            }
+
+            hamburgerButton.addEventListener('click', toggleMobileMenu);
+
+            // Highlight du lien de navigation actif (ScrollSpy)
+            const sections = document.querySelectorAll('main section');
+            const navItems = document.querySelectorAll('.nav-item');
+            const mobileNavItems = document.querySelectorAll('#mobile-menu-overlay a');
+
+            const highlightNavItem = () => {
+                let current = '';
+                sections.forEach(section => {
+                    // Offset pour prendre en compte la hauteur de la barre de navigation fixe
+                    const sectionTop = section.offsetTop - navbar.offsetHeight - 10;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navItems.forEach(item => {
+                    item.classList.remove('text-blue-400'); // Supprime la classe de tous les éléments
+                    // Ajoute la classe 'text-blue-400' pour le surlignage et une bordure inférieure animée
+                    const itemHref = item.getAttribute('href');
+                    if (itemHref && itemHref.includes(current)) {
+                        item.classList.add('text-blue-400');
+                        // Réactiver l'animation de l'underline si besoin (elle est déjà gérée par le groupe hover)
+                    }
+                });
+                mobileNavItems.forEach(item => {
+                    item.classList.remove('text-blue-400');
+                    if (item.getAttribute('href').includes(current)) {
+                        item.classList.add('text-blue-400');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', highlightNavItem);
+            window.addEventListener('load', highlightNavItem); // Highlight initial au chargement
+
+            // Fonctionnalité de barre de navigation collante (sticky header)
+            const navbar = document.getElementById('navbar');
+            const heroSection = document.querySelector('.header');
+
+            window.addEventListener('scroll', () => {
+                // Change la transparence et l'ombre de la navbar au défilement
+                if (window.scrollY > 50) { // Après 50px de défilement
+                    navbar.classList.add('bg-opacity-95', 'shadow-xl');
+                    navbar.classList.remove('bg-opacity-70', 'shadow-lg');
+                } else {
+                    navbar.classList.remove('bg-opacity-95', 'shadow-xl');
+                    navbar.classList.add('bg-opacity-70', 'shadow-lg');
+                }
+            });
+
+
+            // Bouton Scroll-to-Top
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // Apparaît après 300px de défilement
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+            });
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Barre de progression de défilement
+            const scrollProgress = document.getElementById('scroll-progress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const progress = (scrollTop / scrollHeight) * 100;
+                scrollProgress.style.width = progress + '%';
+            });
+
+            // Gestion de la soumission du formulaire de contact avec validation visuelle
+            const contactForm = document.getElementById('contact-form');
+            const submitButton = document.getElementById('submit-button');
+            const formFeedback = document.getElementById('form-feedback');
+
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const messageError = document.getElementById('message-error');
+
+            const validateField = (input, errorElement, errorMessage) => {
+                if (input.value.trim() === '') {
+                    input.classList.add('border-red-500');
+                    errorElement.classList.remove('hidden');
+                    errorElement.textContent = errorMessage;
+                    return false;
+                } else {
+                    input.classList.remove('border-red-500');
+                    errorElement.classList.add('hidden');
+                    return true;
+                }
+            };
+
+            const validateEmail = (input, errorElement, errorMessage) => {
+                if (!/\S+@\S+\.\S+/.test(input.value.trim())) {
+                    input.classList.add('border-red-500');
+                    errorElement.classList.remove('hidden');
+                    errorElement.textContent = errorMessage;
+                    return false;
+                } else {
+                    input.classList.remove('border-red-500');
+                    errorElement.classList.add('hidden');
+                    return true;
+                }
+            };
+
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Validation de tous les champs
+                const isNameValid = validateField(nameInput, nameError, 'Veuillez entrer votre nom.');
+                const isEmailValid = validateEmail(emailInput, emailError, 'Veuillez entrer une adresse email valide.');
+                const isMessageValid = validateField(messageInput, messageError, 'Veuillez entrer un message.');
+
+                if (!isNameValid || !isEmailValid || !isMessageValid) {
+                    formFeedback.className = 'error';
+                    formFeedback.innerHTML = '<i class="fas fa-times-circle mr-2"></i> Veuillez corriger les erreurs dans le formulaire.';
+                    formFeedback.style.display = 'block';
+                    return; // Arrête la soumission si la validation échoue
+                }
+
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Envoi...';
+                submitButton.disabled = true;
+                formFeedback.style.display = 'none';
+
+                try {
+                    // Simulation d'un appel API
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+
+                    formFeedback.className = 'success';
+                    formFeedback.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Merci ! Votre message a été envoyé avec succès.';
+                    contactForm.reset();
+
+                } catch (error) {
+                    formFeedback.className = 'error';
+                    formFeedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Erreur : ${error.message || 'Quelque chose s\'est mal passé. Veuillez réessayer.'}`;
+                } finally {
+                    submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Envoyer le message';
+                    submitButton.disabled = false;
+                    formFeedback.style.display = 'block';
+                }
+            });
+
+            // Année dynamique dans le pied de page
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Animation des éléments à l'entrée dans le viewport
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100');
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const sectionsToAnimate = document.querySelectorAll('#about, #why-choose-us, #startup, #services, #tech-stack, #portfolio, #stats, #process, #testimonials, #team, #faq, #blog, #contact');
+            sectionsToAnimate.forEach(section => {
+                section.classList.add('opacity-0', 'transition-all', 'duration-1000', 'ease-out');
+                section.style.transform = 'translateY(20px)'; // Démarrer légèrement plus bas
+                const observer = new IntersectionObserver(observerCallback, observerOptions);
+                observer.observe(section);
+            });
+
+            // Gestion des images avec fallback
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = function() {
+                    this.src = 'https://placehold.co/600x400/cccccc/000000?text=Image+Non+Trouvée';
+                    this.alt = 'Image non disponible';
+                };
+            });
+
+            // Section FAQ (toggle des réponses)
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const icon = question.querySelector('i');
+                    answer.classList.toggle('hidden');
+                    icon.classList.toggle('fa-chevron-down');
+                    icon.classList.toggle('fa-chevron-up');
+                });
+            });
+
+            // Animation de comptage pour les statistiques
+            const counters = document.querySelectorAll('[data-counter-target]');
+            const speed = 200; // La vitesse du compteur (plus le nombre est petit, plus c'est rapide)
+
+            const animateCounter = (entry) => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-counter-target');
+                    const initial = +counter.innerText;
+                    const increment = target / speed;
+
+                    if (initial < target) {
+                        counter.innerText = Math.ceil(initial + increment);
+                        setTimeout(() => animateCounter({ isIntersecting: true, target: counter }), 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                }
+            };
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(animateCounter);
+            }, {
+                root: null,
+                threshold: 0.7 // Déclenche quand 70% de l'élément est visible
+            });
+
+            counters.forEach(counter => {
+                counterObserver.observe(counter);
+            });
+        });
+    </script>
+</body>
+</html>
