@@ -5,21 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SparkNest - L'étincelle qui donne vie à vos idées numériques</title>
 
-    <!-- Favicon pour une touche pro -->
     <link rel="icon" href="https://placehold.co/32x32/5d5dff/ffffff?text=TN" type="image/png">
 
-    <!-- Préconnexion pour les ressources externes (performance) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Google Fonts - Police 'Inter' pour une typographie moderne -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Intégration de Font Awesome pour des icônes professionnelles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Intégration de Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Meta Description SEO de base -->
     <meta name="description" content="SparkNest - Développement web, mobile, desktop, web design UX/UI, SEO et marketing digital. Transformons vos idées en solutions numériques performantes.">
     <meta name="keywords" content="développement web, développement mobile, applications desktop, web design, UX UI, SEO, marketing digital, startup, Cameroun, Afrique, Yaoundé, Douala">
 
@@ -91,6 +85,13 @@
             transform: translateY(20px); /* Pour l'animation d'entrée */
             transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         }
+        
+        /* FIX: Ajout de cette règle pour faire apparaître les liens du menu mobile */
+        .mobile-menu-overlay.open a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .mobile-menu-overlay.open a:nth-child(1) { transition-delay: 0.1s; }
         .mobile-menu-overlay.open a:nth-child(2) { transition-delay: 0.2s; }
         .mobile-menu-overlay.open a:nth-child(3) { transition-delay: 0.3s; }
@@ -195,12 +196,9 @@
 </head>
 <body class="bg-gray-50 text-gray-700">
 
-    <!-- Barre de progression de défilement -->
     <div id="scroll-progress"></div>
 
-    <!-- Section Header et Navigation -->
     <header class="header hero-background relative text-white py-24 md:py-32 lg:py-48 flex flex-col justify-center items-center">
-        <!-- Barre de navigation fixe et responsive -->
         <nav id="navbar" class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-70 py-4 shadow-lg z-50 transition-all duration-300 ease-in-out">
             <div class="container mx-auto flex justify-between items-center px-4">
                 <a href="#" class="text-3xl md:text-4xl font-extrabold text-blue-400 hover:text-blue-300 transition-colors duration-300 transform hover:scale-105 ease-in-out">
@@ -210,12 +208,10 @@
                     </span>
                 </a>
 
-                <!-- Bouton Hamburger pour mobile -->
                 <button id="hamburger-button" class="md:hidden text-white text-2xl focus:outline-none" aria-label="Ouvrir le menu de navigation" aria-expanded="false">
                     <i class="fas fa-bars"></i>
                 </button>
 
-                <!-- Liens de navigation pour desktop -->
                 <div class="hidden md:flex nav-links space-x-6 md:space-x-8">
                     <a href="#about" class="nav-item text-lg font-medium text-white hover:text-blue-400 transition-colors duration-300 relative group">
                         À Propos
@@ -245,7 +241,6 @@
             </div>
         </nav>
 
-        <!-- Overlay du menu mobile -->
         <div id="mobile-menu-overlay" class="mobile-menu-overlay">
             <a href="#about" class="text-white hover:text-blue-400 transition-colors duration-300">À Propos</a>
             <a href="#services" class="text-white hover:text-blue-400 transition-colors duration-300">Services</a>
@@ -256,15 +251,12 @@
         </div>
 
         <div class="container mx-auto text-center px-4 pt-16">
-            <!-- Titre du Héro plus impactant et responsive -->
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 animate-fade-in-up">
                 L'étincelle qui donne vie à vos idées numériques.
             </h1>
-            <!-- Description du Héro affinée et responsive -->
             <p class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-8 animate-fade-in-up delay-200">
                 Nous construisons des solutions web, mobiles et desktop sur mesure, alliant design élégant, performance et visibilité pour propulser votre succès.
             </p>
-            <!-- Bouton CTA amélioré avec ombre et animation -->
             <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105">
                 Commencer un projet <i class="fas fa-arrow-right ml-2"></i>
             </a>
@@ -272,7 +264,6 @@
     </header>
 
     <main>
-        <!-- Section "À Propos" -->
         <section id="about" class="py-16 md:py-24 bg-gradient-to-br from-white to-blue-50 opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Qui Sommes-Nous ?</h2>
@@ -281,7 +272,6 @@
                         <p class="text-lg leading-relaxed mb-6 text-gray-700">
                             Chez <strong class="text-blue-600">SparkNest</strong>, nous sommes une équipe passionnée et dévouée à la création de solutions numériques innovantes. Nous croyons que chaque grande idée mérite d'être transformée en une expérience digitale exceptionnelle.
                         </p>
-                        <!-- Mission, Vision, Valeurs dans la section À Propos -->
                         <h3 class="text-2xl font-semibold mb-3 text-gray-800">Notre Mission</h3>
                         <p class="text-lg leading-relaxed mb-6 text-gray-700">
                             Accompagner les entreprises et les startups dans leur transformation digitale en offrant des solutions web, mobile et desktop robustes, esthétiques et axées sur la performance.
@@ -312,14 +302,12 @@
                         </div>
                     </div>
                     <div class="lg:w-1/2 flex justify-center items-center p-4">
-                        <!-- Remplacé l'image par une image Unsplash plus pertinente -->
                         <img src="./IMG-20250628-WA0058.png" alt="Image d'une équipe collaborant" class="max-w-full h-auto">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section "Pourquoi Nous Choisir ?" -->
         <section id="why-choose-us" class="py-16 md:py-24 bg-gray-100 opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Pourquoi Choisir SparkNest ?</h2>
@@ -343,7 +331,6 @@
             </div>
         </section>
 
-        <!-- Nouvelle Section "Pour les Startups" -->
         <section id="startup" class="py-16 md:py-24 bg-blue-50 opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Accélérez Votre Startup avec SparkNest</h2>
@@ -376,7 +363,6 @@
         </section>
 
 
-        <!-- Section Services -->
         <section id="services" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Services</h2>
@@ -405,7 +391,6 @@
             </div>
         </section>
 
-        <!-- Section "Nos Technologies" -->
         <section id="tech-stack" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Notre Stack Technologique</h2>
@@ -457,7 +442,6 @@
             </div>
         </section>
 
-        <!-- Section Portfolio -->
         <section id="portfolio" class="py-16 md:py-24 bg-gray-50 opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Réalisations</h2>
@@ -490,7 +474,6 @@
             </div>
         </section>
 
-        <!-- Section des Statistiques avec animation de comptage -->
         <section id="stats" class="py-16 md:py-24 bg-blue-600 text-white opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12">Nos Chiffres Clés</h2>
@@ -514,7 +497,6 @@
             </div>
         </section>
 
-        <!-- Section "Notre Processus" -->
         <section id="process" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Notre Processus de Travail</h2>
@@ -522,7 +504,6 @@
                     Nous suivons une méthodologie agile et collaborative pour garantir le succès et la transparence de chaque projet.
                 </p>
                 <div class="relative flex flex-col md:flex-row justify-center items-start md:space-x-8">
-                    <!-- Ligne de progression pour desktop -->
                     <div class="hidden md:block absolute top-1/4 left-0 right-0 h-1 bg-blue-200 mx-auto w-3/4"></div>
 
                     <div class="process-step relative flex flex-col items-center mb-10 md:mb-0 md:w-1/4 text-center">
@@ -549,7 +530,6 @@
             </div>
         </section>
 
-        <!-- Section Témoignages -->
         <section id="testimonials" class="py-16 md:py-24 bg-gray-100 opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Ce que disent nos clients</h2>
@@ -582,7 +562,6 @@
             </div>
         </section>
 
-        <!-- Section "Notre Équipe" -->
         <section id="team" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Notre Équipe</h2>
@@ -615,7 +594,6 @@
             </div>
         </section>
 
-        <!-- Section FAQ (simple accordéon) -->
         <section id="faq" class="py-16 md:py-24 bg-gray-100 opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Questions Fréquemment Posées</h2>
@@ -651,7 +629,6 @@
             </div>
         </section>
 
-        <!-- Section "Blog / Actualités" (Placeholder) -->
         <section id="blog" class="py-16 md:py-24 bg-white opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Actualités & Articles</h2>
@@ -690,14 +667,13 @@
             </div>
         </section>
 
-        <!-- Section Contact -->
         <section id="contact" class="py-16 md:py-24 bg-gray-50 opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
                 <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Contactez-nous</h2>
                 <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto mb-8">
                     Prêt à donner vie à votre projet ? Remplissez le formulaire ci-dessous et l'un de nos experts vous contactera rapidement.
                 </p>
-                <form id="contact-form" class="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg">
+                <form id="contact-form" action="christiantendainfo2006@gmail.com" class="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg">
                     <div class="mb-6">
                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom complet</label>
                         <input type="text" id="name" name="name" placeholder="Votre nom et prénom" required
@@ -719,48 +695,35 @@
                                   aria-label="Votre message"></textarea>
                         <p class="text-red-500 text-xs italic mt-1 hidden" id="message-error">Veuillez entrer un message.</p>
                     </div>
-                    <!-- Bouton d'envoi avec icône et état de chargement -->
                     <button type="submit" id="submit-button"
                             class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full w-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
                         <i class="fas fa-paper-plane mr-2"></i> Envoyer le message
                     </button>
-                    <!-- Message de feedback pour le formulaire (succès/erreur) -->
                     <div id="form-feedback" class="text-center"></div>
                 </form>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-4 text-center">
             <div class="mb-4">
-                <!-- Liens sociaux dans le footer -->
                 <a href="#" class="text-gray-400 hover:text-white mx-3 text-2xl transition-colors duration-300" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="#" class="text-gray-400 hover:text-white mx-3 text-2xl transition-colors duration-300" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                 <a href="#" class="text-gray-400 hover:text-white mx-3 text-2xl transition-colors duration-300" aria-label="GitHub"><i class="fab fa-github"></i></a>
             </div>
-            <!-- Contact Info in Footer -->
             <p class="text-gray-400 mb-2"><i class="fas fa-map-marker-alt mr-2"></i> Douala, Littoral Region, Cameroun</p>
             <p class="text-gray-400 mb-2"><i class="fas fa-phone mr-2"></i> +237 678261699</p>
             <p class="text-gray-400 mb-4"><i class="fas fa-envelope mr-2"></i> contact@sparknest.com</p>
 
-            <!-- Année dynamique pour le copyright -->
             <p class="text-gray-400 text-sm">&copy; <span id="current-year"></span> SparkNest. Tous droits réservés.</p>
         </div>
     </footer>
 
-    <!-- Bouton Scroll-to-Top -->
     <div id="scroll-to-top" class="fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg cursor-pointer text-2xl flex items-center justify-center transition-all duration-300 ease-in-out">
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <!--
-     * ======================================
-     * JavaScript - Fonctionnalités du Site
-     * ======================================
-     */
--->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Smooth scrolling pour tous les liens internes
