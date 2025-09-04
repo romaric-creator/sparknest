@@ -443,36 +443,239 @@
         </section>
 
         <section id="portfolio" class="py-16 md:py-24 bg-gray-50 opacity-0 transition-all duration-1000 ease-out">
-            <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nos Réalisations</h2>
+                <section
+                id="projets"
+                class="bg-white p-8 md:p-12 rounded-2xl shadow-xl mb-12 transform hover:shadow-2xl transition duration-300"
+            >
+                <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">
+                    Mes Projets
+                </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg group">
-                        <img src="./Screenshot_2025-06-30-15-08-19-851_com.hidari_dev.app.jpg" alt="Image of Mobile App Project" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-300 ease-in-out" loading="lazy">
-                        <div class="portfolio-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-4 opacity-0 transition-opacity duration-300 ease-in-out transform translate-y-full group-hover:translate-y-0">
-                            <h4 class="text-2xl font-bold mb-2">App web / mobile de prise de commande</h4>
-                            <p class="text-center text-gray-300">Développement d'une application de prise de commande pour les restaurants </p>
-                            <a href="" class="mt-4 text-blue-400 hover:text-blue-300 font-semibold">Voir le projet <i class="fas fa-external-link-alt ml-1"></i></a>
+                    <!-- Exemple de Carte de Projet 1 -->
+                    <div
+                        class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+                    >
+                        <!-- Image de projet avec un fallback -->
+                        <img
+                            src="./1751546984859.jpg"
+                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/caf0f8/023e8a?text=Projet+1';"
+                            alt="Projet E-commerce"
+                            class="rounded-lg mb-5 w-full h-48 object-cover shadow-sm"
+                        />
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                            App web / mobile de prise de commande
+                        </h3>
+                        <p class="text-gray-600 mb-4 text-base leading-relaxed">
+                            Développement d'une application de prise de commande pour les
+                            restaurants
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span
+                                class="bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm"
+                                >HTML CSS</span
+                            >
+                            <span
+                                class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm"
+                                >PHP</span
+                            >
+                            <span
+                                class="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-sm"
+                                >SQL</span
+                            >
+                            <span
+                                class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-sm"
+                                >Tailwind CSS</span
+                            >
+                        </div>
+                        <div class="flex justify-between items-center text-sm font-medium">
+                            <a
+                                href="https://github.com/romaric-creator/My-dashboard"
+                                target="_blank"
+                                class="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                            >
+                                Voir le Code
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg group">
-                        <img src="./" alt="Image of E-commerce Website Project" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-300 ease-in-out" loading="lazy">
-                        <div class="portfolio-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-4 opacity-0 transition-opacity duration-300 ease-in-out transform translate-y-full group-hover:translate-y-0">
-                            <h4 class="text-2xl font-bold mb-2">Site Vitrine & Branding</h4>
-                            <p class="text-center text-gray-300">Conception graphique et développement web pour une présence en ligne percutante.</p>
-                            <a href="#" class="mt-4 text-blue-400 hover:text-blue-300 font-semibold">Voir le projet <i class="fas fa-external-link-alt ml-1"></i></a>
+
+                    <!-- Exemple de Carte de Projet 2 -->
+                    <div
+                        class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+                    >
+                        <img
+                            src="./reseua socila .jpg"
+                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/caf0f8/023e8a?text=Projet+2';"
+                            alt="API Collaborative"
+                            class="rounded-lg mb-5 w-full h-48 object-cover shadow-sm"
+                        />
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                            Réseau Social touristique
+                        </h3>
+                        <p class="text-gray-600 mb-4 text-base leading-relaxed">
+                            Réseaux sociaux permettant de mettre en relation des éventuels
+                            clients avec des entreprises de loisir facilitant ainsi
+                            visibilité au près de ces derniers
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span
+                                class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm"
+                                >php</span
+                            >
+                            <span
+                                class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm"
+                                >html css</span
+                            >
+                            <span
+                                class="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-sm"
+                                >MySQL</span
+                            >
+
+
+                        </div>
+                        <div class="flex justify-between items-center text-sm font-medium">
+                            <a
+                                href="https://github.com/romaric-creator/resaux-social-collaboratif-"
+                                target="_blank"
+                                class="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                            >
+                                Voir le Code
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                </svg>
+                            </a>
+                            <a
+                                href="#"
+                                target="_blank"
+                                class="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                            >
+                                Démo Live
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                    <div class="portfolio-item relative rounded-lg overflow-hidden shadow-lg group">
-                        <img src="https://images.unsplash.com/photo-1510519138101-570d1dca3d66?q=80&w=2047&auto=format&fit=crop" alt="Image of Desktop Software Project" class="w-full h-auto transform group-hover:scale-105 transition-transform duration-300 ease-in-out" loading="lazy">
-                        <div class="portfolio-overlay absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center text-white p-4 opacity-0 transition-opacity duration-300 ease-in-out transform translate-y-full group-hover:translate-y-0">
-                            <h4 class="text-2xl font-bold mb-2">Application Desktop Métier</h4>
-                            <p class="text-center text-gray-300">Développement d'un logiciel sur mesure pour optimiser les processus internes d'une entreprise.</p>
-                            <a href="#" class="mt-4 text-blue-400 hover:text-blue-300 font-semibold">Voir le projet <i class="fas fa-external-link-alt ml-1"></i></a>
+                    <div
+                        class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
+                    >
+                        <img
+                            src="./festion de commande .jpg"
+                            onerror="this.onerror=null;this.src='https://placehold.co/400x250/caf0f8/023e8a?text=Projet+2';"
+                            alt="API Collaborative"
+                            class="rounded-lg mb-5 w-full h-48 object-cover shadow-sm"
+                        />
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                            App web / mobile de prise de commande
+                        </h3>
+                        <p class="text-gray-600 mb-4 text-base leading-relaxed">
+                            Développement d'une application de prise de commande pour les
+                            restaurants
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span
+                                class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm"
+                                >Node.js</span
+                            >
+                            <span
+                                class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm"
+                                >Express.js</span
+                            >
+                            <span
+                                class="bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-sm"
+                                >react js</span
+                            >
+                            <span
+                                class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-sm"
+                                >SQL</span
+                            >
+                            <span
+                                class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-sm"
+                                >css</span
+                            >
+                        </div>
+                        <div class="flex justify-between items-center text-sm font-medium">
+                            <a
+                                href="https://github.com/romaric-creator/chat-react-js"
+                                target="_blank"
+                                class="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                            >
+                                Voir le Code
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                </svg>
+                            </a>
+                            <a
+                                href="#"
+                                target="_blank"
+                                class="text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                            >
+                                Démo Live
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                    />
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
         <section id="stats" class="py-16 md:py-24 bg-blue-600 text-white opacity-0 transition-all duration-1000 ease-out">
             <div class="container mx-auto px-4">
@@ -537,7 +740,7 @@
                     <div class="testimonial-card bg-white p-8 rounded-lg shadow-md border-t-4 border-blue-500 flex flex-col items-center text-center">
                         <i class="fas fa-quote-left text-4xl text-blue-400 mb-4"></i>
                         <p class="text-lg italic text-gray-600 mb-6">"SparkNest a transformé notre vision en une réalité numérique époustouflante. Leur expertise en web design et développement mobile est inégalée. Un vrai partenariat !"</p>
-                        <p class="font-semibold text-gray-800">- Jeanne Dubois, CEO de InnovCo</p>
+                        <p class="font-semibold text-gray-800">- Hernest Tatat, CEO de InnovCo</p>
                         <div class="flex mt-4">
                             <i class="fas fa-star text-yellow-400"></i>
                             <i class="fas fa-star text-yellow-400"></i>
@@ -549,7 +752,7 @@
                     <div class="testimonial-card bg-white p-8 rounded-lg shadow-md border-t-4 border-blue-500 flex flex-col items-center text-center">
                         <i class="fas fa-quote-left text-4xl text-blue-400 mb-4"></i>
                         <p class="text-lg italic text-gray-600 mb-6">"Leur approche SEO a propulsé notre site en tête des résultats. Grâce à SparkNest, nous avons doublé notre trafic organique en moins de 6 mois. Hautement recommandé !"</p>
-                        <p class="font-semibold text-gray-800">- Marc Dupont, Directeur Marketing chez GlobalTech</p>
+                        <p class="font-semibold text-gray-800">- Cecil Emaleu, Directrice Marketing chez GlobalTech</p>
                         <div class="flex mt-4">
                             <i class="fas fa-star text-yellow-400"></i>
                             <i class="fas fa-star text-yellow-400"></i>
@@ -673,7 +876,7 @@
                 <p class="text-lg text-center text-gray-600 max-w-2xl mx-auto mb-8">
                     Prêt à donner vie à votre projet ? Remplissez le formulaire ci-dessous et l'un de nos experts vous contactera rapidement.
                 </p>
-                <form id="contact-form" action="christiantendainfo2006@gmail.com" class="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg">
+                <form id="contact-form" action="https://formspree.io/f/christiantendainfo2006@gmail.com" method="POST" class="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-lg">
                     <div class="mb-6">
                         <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom complet</label>
                         <input type="text" id="name" name="name" placeholder="Votre nom et prénom" required
@@ -882,7 +1085,7 @@
             contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                // Validation de tous les champs
+                // Validation des champs
                 const isNameValid = validateField(nameInput, nameError, 'Veuillez entrer votre nom.');
                 const isEmailValid = validateEmail(emailInput, emailError, 'Veuillez entrer une adresse email valide.');
                 const isMessageValid = validateField(messageInput, messageError, 'Veuillez entrer un message.');
@@ -891,24 +1094,38 @@
                     formFeedback.className = 'error';
                     formFeedback.innerHTML = '<i class="fas fa-times-circle mr-2"></i> Veuillez corriger les erreurs dans le formulaire.';
                     formFeedback.style.display = 'block';
-                    return; // Arrête la soumission si la validation échoue
+                    return;
                 }
-
+                
+                // Envoyer le formulaire au service Formspree
                 submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Envoi...';
                 submitButton.disabled = true;
                 formFeedback.style.display = 'none';
 
+                // Utilisation de FormData pour l'envoi
+                const formData = new FormData(contactForm);
+
                 try {
-                    // Simulation d'un appel API
-                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
 
-                    formFeedback.className = 'success';
-                    formFeedback.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Merci ! Votre message a été envoyé avec succès.';
-                    contactForm.reset();
-
+                    if (response.ok) {
+                        formFeedback.className = 'success';
+                        formFeedback.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Merci ! Votre message a été envoyé avec succès.';
+                        contactForm.reset();
+                    } else {
+                        const result = await response.json();
+                        formFeedback.className = 'error';
+                        formFeedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Erreur : ${result.error || 'Une erreur inconnue est survenue.'}`;
+                    }
                 } catch (error) {
                     formFeedback.className = 'error';
-                    formFeedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Erreur : ${error.message || 'Quelque chose s\'est mal passé. Veuillez réessayer.'}`;
+                    formFeedback.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Erreur réseau : Impossible de se connecter au service.`;
                 } finally {
                     submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Envoyer le message';
                     submitButton.disabled = false;
