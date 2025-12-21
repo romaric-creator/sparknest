@@ -1,0 +1,77 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Fallback styles for prose content if plugin fails or prose-invert is tricky */
+.prose {
+  color: #cbd5e1;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose strong,
+.prose b {
+  color: #ffffff;
+}
+
+.prose a {
+  color: #22d3ee;
+}
+
+.prose ul,
+.prose ol {
+  color: #cbd5e1;
+}
+
+.prose li::marker {
+  color: #64748b;
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #22d3ee;
+}
+
+
+@theme {
+  --color-brand-dark: #020617;
+  --color-brand-cyan: #22d3ee;
+  --color-brand-indigo: #6366f1;
+
+  --background-image-hero-gradient: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
+
+  @keyframes gradient-x {
+
+    0%,
+    100% {
+      background-size: 200% 200%;
+      background-position: left center;
+    }
+
+    50% {
+      background-size: 200% 200%;
+      background-position: right center;
+    }
+  }
+
+  --animate-gradient-x: gradient-x 3s ease infinite;
+}
