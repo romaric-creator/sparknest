@@ -1,84 +1,96 @@
 // src/components/TechStack.tsx
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import {
-  Code2,
-  Database,
-  Cloud,
-  Layers,
-  Cpu,
-  Globe,
-  Zap,
-  Box
-} from 'lucide-react';
+import { getTechnologies } from '../services/api';
 
-const techLogos = [
-  { name: 'React', icon: <Code2 className="w-8 h-8" /> },
-  { name: 'Node.js', icon: <Cpu className="w-8 h-8" /> },
-  { name: 'TypeScript', icon: <Zap className="w-8 h-8" /> },
-  { name: 'GraphQL', icon: <Globe className="w-8 h-8" /> },
-  { name: 'PostgreSQL', icon: <Database className="w-8 h-8" /> },
-  { name: 'AWS', icon: <Cloud className="w-8 h-8" /> },
-  { name: 'Docker', icon: <Box className="w-8 h-8" /> },
-  { name: 'Kubernetes', icon: <Layers className="w-8 h-8" /> },
-];
+interface Technology {
+    id: number;
+    name: string;
+    icon: string;
+}
 
 const TechStack: React.FC = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+    const [technologies, setTechnologies] = useState<Technology[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-  };
+    useEffect(() => {
+        const fetchTechs = async () => {
+            try {
+                setLoading(true);
+                const data = await getTechnologies();
+                setTechnologies(data);
+            } catch (err) {
+                setError('Impossible de charger les technologies.');
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTechs();
+    }, []);
 
-  return (
-    <section id="tech-stack" className="py-24 bg-brand-dark/50">
-      <div className="container mx-auto px-6 text-center">
-        <motion.h3
-          initial={{ opacity: 0, y: -20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-slate-400 font-medium mb-12 text-lg"
-        >
-          Les technologies que nous maîtrisons pour des produits d'exception
-        </motion.h3>
-        <motion.div
-          ref={ref}
-          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-8 items-center justify-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {techLogos.map((tech, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="group flex flex-col items-center gap-3"
-            >
-              <div className="p-4 rounded-2xl bg-slate-800/50 border border-slate-700/50 text-slate-400 group-hover:text-brand-cyan group-hover:border-brand-cyan/50 group-hover:bg-brand-cyan/5 transition-all duration-300 shadow-lg group-hover:shadow-brand-cyan/10">
-                {tech.icon}
-              </div>
-              <span className="text-slate-500 font-medium text-sm group-hover:text-slate-200 transition-colors duration-300">
-                {tech.name}
-              </span>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 },
+    };
+
+    return (
+        <section id="tech-stack" className="py-24 bg-gradient-to-b from-emerald-50/30 to-white">
+            <div className="container mx-auto px-6 text-center">
+                <motion.h3
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6 }}
+                    className="text-brand-muted font-medium mb-12 text-lg max-w-2xl mx-auto"
+                >
+                    Les technologies que nous maîtrisons pour des produits d'exception
+                </motion.h3>
+                <motion.div
+                    ref={ref}
+                    className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 items-start justify-center"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                >
+                    {loading ? (
+                        <p className="text-brand-muted col-span-full text-center">Chargement...</p>
+                    ) : error ? (
+                        <p className="text-red-500 col-span-full text-center">{error}</p>
+                    ) : (
+                        technologies.map((tech) => (
+                            <motion.div
+                                key={tech.id}
+                                variants={itemVariants}
+                                className="group flex flex-col items-center gap-3"
+                            >
+                                <div className="p-4 rounded-2xl bg-white border border-brand-border group-hover:border-brand-accent group-hover:shadow-lg transition-all duration-300">
+                                    <img src={tech.icon} alt={tech.name} className="w-10 h-10" />
+                                </div>
+                                <span className="text-brand-muted font-medium text-sm text-center group-hover:text-brand-text transition-colors duration-300">
+                                    {tech.name}
+                                </span>
+                            </motion.div>
+                        ))
+                    )}
+                </motion.div>
+            </div>
+        </section>
+    );
 };
 
 export default TechStack;

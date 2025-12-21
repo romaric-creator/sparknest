@@ -1,77 +1,154 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Fallback styles for prose content if plugin fails or prose-invert is tricky */
-.prose {
-  color: #cbd5e1;
+@theme {
+  /* ===== 1. COULEURS DE MARQUE (SIGNATURE VERTE) ===== */
+  /* Un vert forêt profond pour une identité forte et sérieuse */
+  --color-brand-text: #052e16;
+  /* Green 950 : plus profond que l'ancien */
+  --color-brand-muted: #475569;
+  /* Slate 600 : pour le corps de texte */
+  --color-brand-accent: #10b981;
+  /* Emerald 500 : l'étincelle tech */
+  --color-brand-accent-dark: #059669;
+
+  /* ===== 2. SURFACES ET FONDS (LIGHT MODE) ===== */
+  --color-brand-bg: #f8fafc;
+  /* Un blanc bleuté très frais */
+  --color-brand-surface: #ffffff;
+  --color-brand-border: #e2e8f0;
+  /* Slate 200 */
+  --color-brand-border-hover: var(--color-brand-accent);
+
+  /* ===== 3. SYSTÈME SOMBRE (DARK UI / CODE) ===== */
+  /* Ajusté pour être en harmonie avec le vert plutôt que le bleu pur */
+  --color-brand-primary: #ffffff;
+  /* Pour Header/Footer - Blanc */
+  --color-dark-bg: #020617;
+  /* Slate 950 */
+  --color-dark-surface: #0f172a;
+  /* Slate 900 */
+  --color-dark-border: #1e293b;
+  /* Slate 800 */
+  --color-dark-text: #94a3b8;
+  /* Slate 400 */
+  --color-dark-accent: #34d399;
+  /* Vert plus clair pour ressortir sur le noir */
+
+  /* ===== 4. ÉTATS ET SEMANTIQUE ===== */
+  --color-error: #ef4444;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+
+  /* ===== 5. DESIGN TOKENS (INTERACTIONS) ===== */
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --transition-gentle: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose strong,
-.prose b {
-  color: #ffffff;
+/* -------------------------------------------------------------------------- */
+/* TYPOGRAPHIE                                                                */
+/* -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@500;600;700&display=swap');
+
+:root {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-text);
+  -webkit-font-smoothing: antialiased;
 }
 
-.prose a {
-  color: #22d3ee;
+/* Transitions harmonisées pour tous les éléments */
+* {
+  transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.prose ul,
-.prose ol {
-  color: #cbd5e1;
+/* Désactiver les transitions pour les éléments qui ne devraient pas animer */
+*:where([disabled], [aria-disabled="true"]) {
+  transition: none;
 }
 
-.prose li::marker {
-  color: #64748b;
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--color-brand-text);
 }
 
-/* Smooth Scroll Behavior */
-html {
-  scroll-behavior: smooth;
-}
+/* -------------------------------------------------------------------------- */
+/* COMPOSANTS ÉPURÉS                                                          */
+/* -------------------------------------------------------------------------- */
 
-/* Custom Scrollbar for dark theme */
+/* Scrollbar épurée */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 5px;
+  background: #cbd5e1;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #22d3ee;
+  background: var(--color-brand-accent);
 }
 
+/* Cartes Tech Premium */
+.card-tech {
+  background: var(--color-brand-surface);
+  border: 1px solid var(--color-brand-border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  transition: var(--transition-gentle);
+}
 
-@theme {
-  --color-brand-dark: #020617;
-  --color-brand-cyan: #22d3ee;
-  --color-brand-indigo: #6366f1;
+.card-tech:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-brand-accent);
+  box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.05),
+    0 8px 10px -6px rgba(0, 0, 0, 0.01);
+}
 
-  --background-image-hero-gradient: radial-gradient(circle at top, #0f172a 0%, #020617 100%);
+/* Bouton principal avec un léger dégradé */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-brand-text) 0%, #064e3b 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: var(--transition-gentle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+}
 
-  @keyframes gradient-x {
+.btn-primary:hover {
+  background: var(--color-brand-accent);
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.25);
+  transform: translateY(-1px);
+}
 
-    0%,
-    100% {
-      background-size: 200% 200%;
-      background-position: left center;
-    }
-
-    50% {
-      background-size: 200% 200%;
-      background-position: right center;
-    }
-  }
-
-  --animate-gradient-x: gradient-x 3s ease infinite;
+/* Badge raffiné */
+.badge-tech {
+  background-color: #f0fdf4;
+  /* emerald-50 */
+  color: #166534;
+  /* emerald-800 */
+  padding: 0.2rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #dcfce7;
 }

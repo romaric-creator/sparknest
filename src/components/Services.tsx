@@ -1,93 +1,106 @@
 // src/components/Services.tsx
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import * as Icons from 'lucide-react';
+import { getServices } from '../services/api';
 
-const servicesData = [
-  {
-    title: 'Développement Web & Mobile',
-    description: 'Création d\'applications sur-mesure, performantes et optimisées pour tous les supports.',
-    icon: 'Code', // Placeholder for an icon
-  },
-  {
-    title: 'Architecture Cloud & DevOps',
-    description: 'Infrastructure scalable, CI/CD et automatisation pour une mise en production rapide et fiable.',
-    icon: 'Cloud', // Placeholder for an icon
-  },
-  {
-    title: 'UI/UX & Stratégie Produit',
-    description: 'Conception d\'interfaces intuitives et engageantes qui répondent aux besoins de vos utilisateurs.',
-    icon: 'Design', // Placeholder for an icon
-  },
-];
+// Helper to dynamically render Lucide icons
+const DynamicIcon = ({ name, ...props }) => {
+    const IconComponent = Icons[name];
+
+    if (!IconComponent) {
+        // Return a default icon or null
+        return <Icons.HelpCircle {...props} />;
+    }
+
+    return <IconComponent {...props} />;
+};
+
+interface Service {
+    id: number;
+    icon: string;
+    title:string;
+    description: string;
+}
 
 const Services: React.FC = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px 0px" }); // Trigger once when 100px from bottom of viewport
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
+    
+    const [services, setServices] = useState<Service[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                setLoading(true);
+                const data = await getServices();
+                setServices(data);
+            } catch (err) {
+                setError('Impossible de charger les services.');
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchServices();
+    }, []);
 
-  const itemVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-  };
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+            },
+        },
+    };
 
-  // A simple function to render placeholder icons.
-  // In a real app, you would use an icon library like react-icons.
-  const renderIcon = (iconName: string) => {
-    const baseClass = "w-8 h-8 mb-4 text-brand-cyan";
-    if (iconName === 'Code') {
-      return <svg className={baseClass} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>;
-    }
-    if (iconName === 'Cloud') {
-      return <svg className={baseClass} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>;
-    }
-    if (iconName === 'Design') {
-      return <svg className={baseClass} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>;
-    }
-    return null;
-  };
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: { y: 0, opacity: 1 },
+    };
 
-  return (
-    <section id="services" className="py-24 bg-brand-dark">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white">Nos Domaines d'Expertise</h2>
-          <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
-            Nous offrons une gamme complète de services pour accompagner votre projet à chaque étape de son cycle de vie.
-          </p>
-        </div>
-        <motion.div
-          ref={ref}
-          className="grid md:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {servicesData.map((service, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 transition-all duration-300 hover:border-brand-cyan/50 hover:-translate-y-2"
-              style={{ backdropFilter: 'blur(12px)' }}
-            >
-              {renderIcon(service.icon)}
-              <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
-              <p className="text-slate-400">{service.description}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
+    return (
+        <section id="services" className="py-24 bg-gradient-to-b from-white to-emerald-50/30 border-b border-brand-border">
+            <div className="container mx-auto px-6">
+                <div className="max-w-3xl mb-16 text-center mx-auto">
+                    <h2 className="text-3xl md:text-4xl font-bold text-brand-text mb-4">Nos Domaines d'Expertise</h2>
+                    <p className="text-brand-muted text-lg">
+                        Nous offrons une gamme complète de services pour accompagner votre transformation digitale avec rigueur et expertise.
+                    </p>
+                </div>
+                <motion.div
+                    ref={ref}
+                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate={isInView ? "visible" : "hidden"}
+                >
+                    {loading ? (
+                        <p className="text-brand-muted col-span-full text-center">Chargement des services...</p>
+                    ) : error ? (
+                        <p className="text-red-500 col-span-full text-center">{error}</p>
+                    ) : (
+                        services.map((service) => (
+                            <motion.div
+                                key={service.id}
+                                variants={itemVariants}
+                                className="bg-white border border-brand-border rounded-2xl p-8 hover:border-brand-accent hover:shadow-lg hover:-translate-y-1 group"
+                            >
+                                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 flex items-center justify-center mb-6 group-hover:from-emerald-100 group-hover:to-emerald-200">
+                                    <DynamicIcon name={service.icon} className="w-7 h-7 text-brand-accent" />
+                                </div>
+                                <h3 className="text-xl font-bold text-brand-text mb-3">{service.title}</h3>
+                                <p className="text-brand-muted text-sm leading-relaxed">{service.description}</p>
+                            </motion.div>
+                        ))
+                    )}
+                </motion.div>
+            </div>
+        </section>
+    );
 };
 
 export default Services;

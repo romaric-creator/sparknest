@@ -1,7 +1,7 @@
 // src/pages/Team.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Twitter, Code, Database, Layout } from 'lucide-react';
+import { Github, Linkedin, Twitter, Code, Database, Layout, ChevronRight } from 'lucide-react';
 
 const teamMembers = [
     {
@@ -47,50 +47,49 @@ const teamMembers = [
 
 const Team: React.FC = () => {
     return (
-        <div className="min-h-screen bg-brand-dark pt-20">
-            <div className="container mx-auto px-6 py-16">
+        <div className="min-h-screen bg-brand-dark pt-32 pb-24">
+            <div className="container mx-auto px-6">
                 {/* Header */}
-                <div className="text-center mb-20">
-                    <h1 className="text-5xl font-bold text-white mb-6">L'Équipe SparkNest</h1>
-                    <p className="text-slate-400 text-xl max-w-3xl mx-auto leading-relaxed">
+                <div className="max-w-3xl mb-20">
+                    <h1 className="text-3xl md:text-5xl font-bold text-brand-text mb-6 tracking-tight">L'Équipe SparkNest</h1>
+                    <p className="text-brand-slate text-lg leading-relaxed">
                         Nous sommes un trio d'experts passionnés, unis par une vision commune :
-                        <span className="text-brand-cyan font-semibold"> créer des solutions numériques d'exception</span>.
+                        <span className="text-brand-accent font-semibold"> créer des solutions numériques d'exception</span>.
                         Pas d'intermédiaires, pas de juniors : vous travaillez directement avec les fondateurs.
                     </p>
                 </div>
 
                 {/* Team Grid */}
-                <div className="grid md:grid-cols-3 gap-8 mb-24">
+                <div className="grid md:grid-cols-3 gap-6 mb-24">
                     {teamMembers.map((member, index) => {
                         const Icon = member.icon;
                         return (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 30 }}
+                                initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.2 }}
-                                className="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden group hover:border-brand-cyan/50 transition-all duration-300"
+                                transition={{ delay: index * 0.1 }}
+                                className="card-corporate flex flex-col h-full group"
                             >
                                 {/* Image Header */}
-                                <div className="relative h-48 overflow-hidden">
-                                    <div className="absolute inset-0 bg-brand-cyan/20 mix-blend-overlay z-10"></div>
+                                <div className="relative h-48 rounded-lg overflow-hidden mb-6 border border-brand-border group-hover:border-brand-accent/30 transition-colors">
                                     <img
                                         src={member.image}
                                         alt={member.name}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                                     />
-                                    <div className="absolute -bottom-6 left-6 z-20">
-                                        <div className="w-12 h-12 bg-brand-cyan rounded-xl flex items-center justify-center shadow-lg transform rotate-3 group-hover:rotate-0 transition-transform duration-300">
-                                            <Icon className="text-brand-dark" size={24} />
+                                    <div className="absolute bottom-3 left-3">
+                                        <div className="w-10 h-10 bg-brand-dark/80 backdrop-blur-sm border border-brand-border rounded flex items-center justify-center">
+                                            <Icon className="text-brand-accent" size={20} />
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <div className="pt-10 p-6">
-                                    <h3 className="text-2xl font-bold text-white mb-1">{member.name}</h3>
-                                    <p className="text-brand-cyan font-medium mb-4">{member.role}</p>
-                                    <p className="text-slate-400 mb-6 text-sm leading-relaxed">
+                                <div className="flex-grow">
+                                    <h3 className="text-lg font-bold text-brand-text mb-1">{member.name}</h3>
+                                    <p className="text-brand-accent text-xs font-semibold uppercase tracking-wider mb-4">{member.role}</p>
+                                    <p className="text-brand-slate text-sm mb-6 leading-relaxed">
                                         {member.bio}
                                     </p>
 
@@ -99,25 +98,25 @@ const Team: React.FC = () => {
                                         {member.skills.map((skill, idx) => (
                                             <span
                                                 key={idx}
-                                                className="text-xs font-medium bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700"
+                                                className="text-[10px] font-semibold uppercase tracking-wider bg-brand-surface text-brand-slate px-2 py-1 rounded border border-brand-border"
                                             >
                                                 {skill}
                                             </span>
                                         ))}
                                     </div>
+                                </div>
 
-                                    {/* Social Links */}
-                                    <div className="flex gap-4 pt-4 border-t border-slate-800">
-                                        <a href={member.social.linkedin} className="text-slate-400 hover:text-brand-cyan transition-colors">
-                                            <Linkedin size={20} />
-                                        </a>
-                                        <a href={member.social.github} className="text-slate-400 hover:text-brand-cyan transition-colors">
-                                            <Github size={20} />
-                                        </a>
-                                        <a href={member.social.twitter} className="text-slate-400 hover:text-brand-cyan transition-colors">
-                                            <Twitter size={20} />
-                                        </a>
-                                    </div>
+                                {/* Social Links */}
+                                <div className="flex gap-4 pt-4 border-t border-brand-border mt-auto">
+                                    <a href={member.social.linkedin} className="text-brand-slate hover:text-brand-accent transition-colors">
+                                        <Linkedin size={18} />
+                                    </a>
+                                    <a href={member.social.github} className="text-brand-slate hover:text-brand-accent transition-colors">
+                                        <Github size={18} />
+                                    </a>
+                                    <a href={member.social.twitter} className="text-brand-slate hover:text-brand-accent transition-colors">
+                                        <Twitter size={18} />
+                                    </a>
                                 </div>
                             </motion.div>
                         );
@@ -125,49 +124,50 @@ const Team: React.FC = () => {
                 </div>
 
                 {/* Values / Why Us */}
-                <div className="grid md:grid-cols-2 gap-12 items-center bg-slate-900/30 rounded-3xl p-8 md:p-12 border border-slate-800">
+                <div className="grid md:grid-cols-2 gap-12 items-center bg-brand-surface rounded-2xl p-8 md:p-12 border border-brand-border">
                     <div>
-                        <h2 className="text-3xl font-bold text-white mb-6">Pourquoi travailler avec nous ?</h2>
-                        <div className="space-y-6">
+                        <h2 className="text-2xl md:text-3xl font-bold text-brand-text mb-8 tracking-tight">Pourquoi nous choisir ?</h2>
+                        <div className="space-y-8">
                             <div className="flex gap-4">
-                                <div className="w-10 h-10 rounded-full bg-brand-cyan/10 flex items-center justify-center flex-shrink-0">
-                                    <span className="text-brand-cyan font-bold">1</span>
+                                <div className="w-8 h-8 rounded bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center flex-shrink-0">
+                                    <span className="text-brand-accent text-xs font-bold">01</span>
                                 </div>
                                 <div>
-                                    <h4 className="text-white font-semibold mb-1">Expertise Directe</h4>
-                                    <p className="text-slate-400 text-sm">Vous parlez directement à ceux qui codent votre projet. Pas de perte d'information.</p>
+                                    <h4 className="text-brand-text font-bold mb-2 text-sm uppercase tracking-wider">Expertise Directe</h4>
+                                    <p className="text-brand-slate text-sm leading-relaxed">Vous parlez directement à ceux qui conçoivent et codent votre projet. Pas de perte d'information, pas de bureaucratie.</p>
                                 </div>
                             </div>
                             <div className="flex gap-4">
-                                <div className="w-10 h-10 rounded-full bg-brand-cyan/10 flex items-center justify-center flex-shrink-0">
-                                    <span className="text-brand-cyan font-bold">2</span>
+                                <div className="w-8 h-8 rounded bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center flex-shrink-0">
+                                    <span className="text-brand-accent text-xs font-bold">02</span>
                                 </div>
                                 <div>
-                                    <h4 className="text-white font-semibold mb-1">Agilité Maximale</h4>
-                                    <p className="text-slate-400 text-sm">Une petite équipe soudée prend des décisions rapides et s'adapte instantanément.</p>
+                                    <h4 className="text-brand-text font-bold mb-2 text-sm uppercase tracking-wider">Agilité Maximale</h4>
+                                    <p className="text-brand-slate text-sm leading-relaxed">Une structure légère permet des décisions rapides et une adaptation instantanée à vos besoins changeants.</p>
                                 </div>
                             </div>
                             <div className="flex gap-4">
-                                <div className="w-10 h-10 rounded-full bg-brand-cyan/10 flex items-center justify-center flex-shrink-0">
-                                    <span className="text-brand-cyan font-bold">3</span>
+                                <div className="w-8 h-8 rounded bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center flex-shrink-0">
+                                    <span className="text-brand-accent text-xs font-bold">03</span>
                                 </div>
                                 <div>
-                                    <h4 className="text-white font-semibold mb-1">Qualité Artisanale</h4>
-                                    <p className="text-slate-400 text-sm">Nous ne faisons pas de l'abattage. Chaque ligne de code est pensée et optimisée.</p>
+                                    <h4 className="text-brand-text font-bold mb-2 text-sm uppercase tracking-wider">Qualité Artisanale</h4>
+                                    <p className="text-brand-slate text-sm leading-relaxed">Nous privilégions la qualité sur la quantité. Chaque ligne de code est pensée pour la performance et la durabilité.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="text-center">
-                        <h3 className="text-2xl font-bold text-white mb-4">Prêt à lancer votre projet ?</h3>
-                        <p className="text-slate-400 mb-8">
-                            Discutons de vos besoins et voyons comment notre expertise peut vous aider à atteindre vos objectifs.
+                    <div className="text-center md:text-left md:pl-12 border-t md:border-t-0 md:border-l border-brand-border pt-12 md:pt-0">
+                        <h3 className="text-2xl font-bold text-brand-text mb-4 tracking-tight">Prêt à collaborer ?</h3>
+                        <p className="text-brand-slate mb-8 leading-relaxed">
+                            Discutons de vos enjeux et voyons comment notre expertise peut propulser votre entreprise vers de nouveaux sommets.
                         </p>
                         <a
                             href="mailto:christiantendainfo2006@gmail.com"
-                            className="inline-block bg-brand-cyan text-brand-dark font-bold py-4 px-8 rounded-xl hover:bg-opacity-90 transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:shadow-[0_0_30px_rgba(34,211,238,0.5)]"
+                            className="btn-primary inline-flex items-center gap-2"
                         >
                             Démarrer une collaboration
+                            <ChevronRight size={18} />
                         </a>
                     </div>
                 </div>

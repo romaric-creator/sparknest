@@ -25,23 +25,23 @@ const Projects: React.FC = () => {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2,
+                staggerChildren: 0.1,
             },
         },
     };
 
     const itemVariants = {
-        hidden: { y: 50, opacity: 0 },
+        hidden: { y: 20, opacity: 0 },
         visible: { y: 0, opacity: 1 },
     };
 
     return (
-        <section id="projects" className="py-24 bg-slate-900/60">
+        <section id="projects" className="py-24 bg-gradient-to-b from-emerald-50 to-white">
             <div className="container mx-auto px-6">
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-white">Nos Projets</h2>
-                    <p className="text-slate-400 mt-4 max-w-2xl mx-auto">
-                        Découvrez quelques-uns des projets que nous avons réalisés avec passion et expertise.
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                    <h2 className="text-3xl md:text-4xl font-bold text-brand-text mb-4">Nos Réalisations</h2>
+                    <p className="text-brand-muted text-lg">
+                        Une sélection de projets qui illustrent notre savoir-faire technique et notre engagement envers la qualité.
                     </p>
                 </div>
 
@@ -56,52 +56,55 @@ const Projects: React.FC = () => {
                         <motion.div
                             key={index}
                             variants={itemVariants}
-                            className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden transition-all duration-300 hover:border-brand-cyan/50 hover:-translate-y-2 group"
+                            className="group bg-brand-surface border border-brand-border rounded-lg p-6 flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-brand-accent"
                         >
                             {/* Project Image */}
-                            <div className="relative h-48 overflow-hidden">
+                            <div className="relative h-48 rounded-md overflow-hidden mb-6 border border-brand-border">
                                 <img
                                     src={project.image}
                                     alt={project.title}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60"></div>
                             </div>
 
                             {/* Project Content */}
-                            <div className="p-6">
-                                <h3 className="text-xl font-semibold text-white mb-3">{project.title}</h3>
-                                <p className="text-slate-400 text-sm mb-4">{project.description}</p>
+                            <div className="flex-grow">
+                                <h3 className="text-xl font-bold text-brand-text mb-3">{project.title}</h3>
+                                <p className="text-brand-muted text-sm mb-6 line-clamp-3 leading-relaxed">{project.description}</p>
 
                                 {/* Technologies */}
-                                <div className="flex flex-wrap gap-2 mb-4">
+                                <div className="flex flex-wrap gap-2 mb-6">
                                     {project.technologies && project.technologies.split(',').map((tech: string, techIndex: number) => (
                                         <span
                                             key={techIndex}
-                                            className="text-xs bg-brand-cyan/10 text-brand-cyan px-3 py-1 rounded-full border border-brand-cyan/30"
+                                            className="text-xs font-semibold uppercase tracking-wider bg-emerald-50 text-brand-accent px-2 py-1 rounded border border-emerald-200"
                                         >
-                                            {tech}
+                                            {tech.trim()}
                                         </span>
                                     ))}
                                 </div>
+                            </div>
 
-                                {/* Links */}
-                                <div className="flex gap-4">
-                                    <a
-                                        href={project.demoUrl}
-                                        className="flex items-center gap-2 text-sm text-brand-cyan hover:text-brand-cyan/80 transition-colors"
-                                    >
-                                        <ExternalLink size={16} />
-                                        Demo
-                                    </a>
-                                    <a
-                                        href={project.githubUrl}
-                                        className="flex items-center gap-2 text-sm text-brand-cyan hover:text-brand-cyan/80 transition-colors"
-                                    >
-                                        <Github size={16} />
-                                        Code
-                                    </a>
-                                </div>
+                            {/* Links */}
+                            <div className="flex gap-6 pt-4 border-t border-brand-border mt-auto">
+                                <a
+                                    href={project.demoUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-sm font-semibold text-brand-accent hover:text-brand-text"
+                                >
+                                    <ExternalLink size={14} />
+                                    Live Demo
+                                </a>
+                                <a
+                                    href={project.githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-sm font-semibold text-brand-muted hover:text-brand-text"
+                                >
+                                    <Github size={14} />
+                                    Source Code
+                                </a>
                             </div>
                         </motion.div>
                     ))}
