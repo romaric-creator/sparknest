@@ -1,111 +1,42 @@
-// src/pages/Blog.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, User, ArrowRight, Search } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getArticles } from '../services/api';
+
+interface BlogPost {
+    id: string;
+    title: string;
+    excerpt: string;
+    image: string;
+    category: string;
+    author: string;
+    date: string;
+    readTime: string;
+}
 
 const categories = ['Tous', 'Architecture', 'Mobile', 'Sécurité', 'IA & Machine Learning', 'DevOps', 'UI/UX'];
-
-const blogPosts = [
-    {
-        id: 1,
-        title: 'Les Microservices en 2024 : Guide Complet',
-        excerpt: 'Découvrez comment architecturer vos applications avec une approche microservices moderne et scalable.',
-        author: 'SparkNest Team',
-        date: '15 Décembre 2024',
-        category: 'Architecture',
-        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=500&fit=crop',
-        readTime: '8 min',
-    },
-    {
-        id: 2,
-        title: 'Optimiser les Performances React Native',
-        excerpt: 'Techniques avancées pour améliorer les performances de vos applications React Native.',
-        author: 'SparkNest Team',
-        date: '10 Décembre 2024',
-        category: 'Mobile',
-        image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=500&fit=crop',
-        readTime: '6 min',
-    },
-    {
-        id: 3,
-        title: 'Sécurité des API : Bonnes Pratiques',
-        excerpt: 'Comment sécuriser vos API avec OAuth2, JWT et autres mécanismes de protection.',
-        author: 'SparkNest Team',
-        date: '5 Décembre 2024',
-        category: 'Sécurité',
-        image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=500&fit=crop',
-        readTime: '10 min',
-    },
-    {
-        id: 4,
-        title: 'Introduction à TensorFlow pour Développeurs',
-        excerpt: 'Premiers pas avec TensorFlow pour intégrer l\'IA dans vos applications.',
-        author: 'SparkNest Team',
-        date: '1 Décembre 2024',
-        category: 'IA & Machine Learning',
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop',
-        readTime: '12 min',
-    },
-    {
-        id: 5,
-        title: 'CI/CD avec GitHub Actions',
-        excerpt: 'Automatisez vos déploiements avec GitHub Actions et Docker.',
-        author: 'SparkNest Team',
-        date: '28 Novembre 2024',
-        category: 'DevOps',
-        image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&h=500&fit=crop',
-        readTime: '7 min',
-    },
-    {
-        id: 6,
-        title: 'Design Systems : Construire une UI Cohérente',
-        excerpt: 'Créez un design system scalable pour vos applications avec Figma et Storybook.',
-        author: 'SparkNest Team',
-        date: '20 Novembre 2024',
-        category: 'UI/UX',
-        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=500&fit=crop',
-        readTime: '9 min',
-    },
-    {
-        id: 7,
-        title: 'Kubernetes pour les Débutants',
-        excerpt: 'Comprendre les concepts de base de l\'orchestration de conteneurs avec K8s.',
-        author: 'SparkNest Team',
-        date: '15 Novembre 2024',
-        category: 'DevOps',
-        image: 'https://images.unsplash.com/photo-1667372393119-c85c020799a3?w=800&h=500&fit=crop',
-        readTime: '15 min',
-    },
-    {
-        id: 8,
-        title: 'L\'avenir du Web avec WebAssembly',
-        excerpt: 'Pourquoi WebAssembly va révolutionner les performances des applications web.',
-        author: 'SparkNest Team',
-        date: '10 Novembre 2024',
-        category: 'Architecture',
-        image: 'https://images.unsplash.com/photo-1550439062-609e1531270e?w=800&h=500&fit=crop',
-        readTime: '8 min',
-    },
-    {
-        id: 9,
-        title: 'UX Mobile : Les Erreurs à Éviter',
-        excerpt: 'Les pièges courants dans la conception d\'interfaces mobiles et comment les contourner.',
-        author: 'SparkNest Team',
-        date: '5 Novembre 2024',
-        category: 'UI/UX',
-        image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=500&fit=crop',
-        readTime: '6 min',
-    }
-];
 
 const Blog: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Tous');
+    const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
 
-    const filteredPosts = blogPosts.filter(post => {
+    useEffect(() => {
+        const fetchArticles = async () => {
+            try {
+                const data: BlogPost[] = await getArticles();
+                setBlogPosts(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchArticles();
+    }, []);
+
+    const filteredPosts = blogPosts.filter((post: BlogPost) => {
         const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+            (post.excerpt && post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()));
         const matchesCategory = selectedCategory === 'Tous' || post.category === selectedCategory;
         return matchesSearch && matchesCategory;
     });
@@ -137,13 +68,13 @@ const Blog: React.FC = () => {
 
                     {/* Categories */}
                     <div className="flex flex-wrap justify-center gap-2">
-                        {categories.map((cat) => (
+                        {categories.map((cat: string) => (
                             <button
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${selectedCategory === cat
-                                        ? 'bg-brand-cyan text-brand-dark'
-                                        : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
+                                    ? 'bg-brand-cyan text-brand-dark'
+                                    : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
                                     }`}
                             >
                                 {cat}

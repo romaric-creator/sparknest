@@ -1,9 +1,36 @@
 // src/components/Contact.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import { sendContactMessage } from '../services/api';
 
 const Contact: React.FC = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+    });
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('loading');
+        try {
+            await sendContactMessage({
+                name: formData.name,
+                email: formData.email,
+                subject: formData.subject,
+                content: formData.message
+            });
+            setStatus('success');
+            setFormData({ name: '', email: '', subject: '', message: '' });
+        } catch (error) {
+            console.error(error);
+            setStatus('error');
+        }
+    };
+
     return (
         <section id="contact" className="py-24 bg-slate-900/30">
             <div className="container mx-auto px-6">
@@ -59,13 +86,16 @@ const Contact: React.FC = () => {
                         viewport={{ once: true }}
                         className="bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl"
                     >
-                        <form className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium text-slate-400 mb-2">Nom</label>
                                     <input
                                         type="text"
                                         id="name"
+                                        required
+                                        value={formData.name}
+                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-cyan transition-colors"
                                         placeholder="Votre nom"
                                     />
@@ -75,6 +105,9 @@ const Contact: React.FC = () => {
                                     <input
                                         type="email"
                                         id="email"
+                                        required
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-cyan transition-colors"
                                         placeholder="votre@email.com"
                                     />
@@ -86,6 +119,9 @@ const Contact: React.FC = () => {
                                 <input
                                     type="text"
                                     id="subject"
+                                    required
+                                    value={formData.subject}
+                                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                                     className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-cyan transition-colors"
                                     placeholder="De quoi s'agit-il ?"
                                 />
@@ -96,6 +132,9 @@ const Contact: React.FC = () => {
                                 <textarea
                                     id="message"
                                     rows={4}
+                                    required
+                                    value={formData.message}
+                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                     className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-cyan transition-colors resize-none"
                                     placeholder="Racontez-nous votre projet..."
                                 ></textarea>
@@ -103,11 +142,15 @@ const Contact: React.FC = () => {
 
                             <button
                                 type="submit"
-                                className="w-full bg-brand-cyan text-brand-dark font-bold py-4 rounded-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2"
+                                disabled={status === 'loading'}
+                                className="w-full bg-brand-cyan text-brand-dark font-bold py-4 rounded-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50"
                             >
-                                Envoyer le message
+                                {status === 'loading' ? 'Envoi en cours...' : 'Envoyer le message'}
                                 <Send size={18} />
                             </button>
+
+                            {status === 'success' && <p className="text-green-400 text-center">Message envoyé avec succès !</p>}
+                            {status === 'error' && <p className="text-red-400 text-center">Une erreur est survenue. Veuillez réessayer.</p>}
                         </form>
                     </motion.div>
 

@@ -1,37 +1,22 @@
-// src/components/Projects.tsx
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
 import { ExternalLink, Github } from 'lucide-react';
-
-const projectsData = [
-    {
-        title: 'E-commerce Platform',
-        description: 'Plateforme e-commerce complète avec paiement en ligne, gestion de stock et tableau de bord administrateur.',
-        image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=500&fit=crop',
-        technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-        demoUrl: '#',
-        githubUrl: '#',
-    },
-    {
-        title: 'API Banking System',
-        description: 'Système bancaire sécurisé avec authentification multi-facteurs, transactions en temps réel et API RESTful.',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
-        technologies: ['Python', 'FastAPI', 'PostgreSQL', 'Redis'],
-        demoUrl: '#',
-        githubUrl: '#',
-    },
-    {
-        title: 'Mobile Health App',
-        description: 'Application mobile de santé connectée avec suivi en temps réel, rappels de médicaments et téléconsultation.',
-        image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
-        technologies: ['React Native', 'Firebase', 'TensorFlow', 'WebRTC'],
-        demoUrl: '#',
-        githubUrl: '#',
-    },
-];
+import { getProjects } from '../services/api';
 
 const Projects: React.FC = () => {
+    const [projectsData, setProjectsData] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            try {
+                const data = await getProjects();
+                setProjectsData(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchProjects();
+    }, []);
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-100px 0px' });
 
@@ -90,7 +75,7 @@ const Projects: React.FC = () => {
 
                                 {/* Technologies */}
                                 <div className="flex flex-wrap gap-2 mb-4">
-                                    {project.technologies.map((tech, techIndex) => (
+                                    {project.technologies && project.technologies.split(',').map((tech: string, techIndex: number) => (
                                         <span
                                             key={techIndex}
                                             className="text-xs bg-brand-cyan/10 text-brand-cyan px-3 py-1 rounded-full border border-brand-cyan/30"
