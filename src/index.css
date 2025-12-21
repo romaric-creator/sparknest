@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@500;600;700&display=swap');
 
 @theme {
   /* ===== 1. COULEURS DE MARQUE (SIGNATURE VERTE) ===== */
@@ -50,7 +51,6 @@
 /* -------------------------------------------------------------------------- */
 /* TYPOGRAPHIE                                                                */
 /* -------------------------------------------------------------------------- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@500;600;700&display=swap');
 
 :root {
   font-family: 'Inter', system-ui, sans-serif;
