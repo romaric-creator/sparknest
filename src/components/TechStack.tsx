@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // import { motion } from 'framer-motion'; // Remove motion import
 import { getTechnologies } from '../services/api';
 import Icon from './Icon';
+import { icons } from 'lucide-react'; // Import icons to get IconName type
 
 interface Technology {
     id: number;
@@ -9,13 +10,13 @@ interface Technology {
     icon: string; // This will now be the Lucide icon name
 }
 
-// Mapping from technology names (or backend icon strings) to valid Lucide icon names
-const iconNameMapping: { [key: string]: string } = {
-    "Node JS": "Server", // Example mapping
-    "Typescript": "Brackets", // Example mapping
-    "React": "Atom", // Example mapping
-    // Add more mappings as needed
-};
+// Remove iconNameMapping as mobile app will send direct Lucide icon names
+// const iconNameMapping: { [key: string]: string } = {
+//     "Node JS": "Server", // Example mapping
+//     "Typescript": "Brackets", // Example mapping
+//     "React": "Atom", // Example mapping
+//     // Add more mappings as needed
+// };
 
 const TechStack: React.FC = () => {
     const ref = useRef(null);
@@ -82,7 +83,8 @@ const TechStack: React.FC = () => {
                         <p className="text-red-500 col-span-full text-center">{error}</p>
                     ) : (
                         technologies.map((tech) => {
-                            const lucideIconName = iconNameMapping[tech.name] || 'HelpCircle'; // Fallback icon
+                            // Directly use tech.icon as the Lucide icon name
+                            const lucideIconName = tech.icon as keyof typeof icons || 'HelpCircle'; // Fallback icon
                             return (
                                 <div // Changed from motion.div
                                     key={tech.id}
@@ -90,7 +92,7 @@ const TechStack: React.FC = () => {
                                     className="group flex flex-col items-center gap-3"
                                 >
                                     <div className="p-4 rounded-2xl bg-white border border-brand-border group-hover:border-brand-accent group-hover:shadow-lg transition-all duration-300">
-                                        <Icon name={lucideIconName as any} size={40} className="text-brand-text" />
+                                        <Icon name={lucideIconName} size={40} className="text-brand-text" />
                                     </div>
                                     <span className="text-brand-muted font-medium text-sm text-center group-hover:text-brand-text transition-colors duration-300">
                                         {tech.name}
