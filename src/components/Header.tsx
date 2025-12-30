@@ -62,12 +62,12 @@ const Header: React.FC = () => {
               className="fixed inset-0 bg-brand-primary z-[1000] flex flex-col items-center justify-center md:hidden"
             >
               <ul className="flex flex-col items-center space-y-8 text-lg font-medium">
-                <li><a href="/#services" onClick={toggleMenu} className="text-[var(--color-white)] hover:text-brand-accent transition-colors">Services</a></li>
-                <li><a href="/#features" onClick={toggleMenu} className="text-[var(--color-white)] hover:text-brand-accent transition-colors">Expertise</a></li>
-                <li><a href="/#projects" onClick={toggleMenu} className="text-[var(--color-white)] hover:text-brand-accent transition-colors">Projets</a></li>
-                <li><Link to="/marketplace" onClick={toggleMenu} className="text-[var(--color-white)] hover:text-brand-accent transition-colors">Marketplace</Link></li>
-                <li><Link to="/blog" onClick={toggleMenu} className="text-[var(--color-white)] hover:text-brand-accent transition-colors">Blog</Link></li>
-                <li><Link to="/team" onClick={toggleMenu} className="text-[var(--color-white)] hover:text-brand-accent transition-colors">L'Équipe</Link></li>
+                <li><a href="/#services" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Services</a></li>
+                <li><a href="/#features" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Expertise</a></li>
+                <li><a href="/#projects" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Projets</a></li>
+                <li><Link to="/marketplace" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Marketplace</Link></li>
+                <li><Link to="/blog" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Blog</Link></li>
+                <li><Link to="/team" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">L'Équipe</Link></li>
                 <li>
                   <a
                     href="mailto:christiantendainfo2006@gmail.com"
