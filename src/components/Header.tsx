@@ -34,12 +34,6 @@ const Header: React.FC = () => {
         </ul>
 
         {/* Desktop CTA */}
-        <a
-          href="mailto:christiantendainfo2006@gmail.com"
-          className="hidden md:block btn-primary text-sm py-2 px-6"
-        >
-          Démarrer un projet
-        </a>
 
         {/* Mobile Menu Button */}
         <button
@@ -66,16 +60,7 @@ const Header: React.FC = () => {
                 <li><a href="/#projects" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Projets</a></li>
                 <li><Link to="/marketplace" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Marketplace</Link></li>
                 <li><Link to="/blog" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Blog</Link></li>
-                <li>
-                  <a
-                    href="mailto:christiantendainfo2006@gmail.com"  
-                    onClick={toggleMenu}
-                    className="btn-primary mt-4"
-                  >
-                    Démarrer un projet
-                  </a>
-                </li>
-              </ul>
+                              </ul>
             </motion.div>
           )}
         </AnimatePresence>
