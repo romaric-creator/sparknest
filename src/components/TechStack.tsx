@@ -20,7 +20,6 @@ const iconNameMapping: { [key: string]: string } = {
 const TechStack: React.FC = () => {
     const ref = useRef(null);
     // const isInView = useInView(ref, { once: true, margin: "-100px 0px" }); // Temporarily remove useInView
-    const isInView = true; // Assume it's always in view for now
 
     const [technologies, setTechnologies] = useState<Technology[]>([]);
     const [loading, setLoading] = useState(true);

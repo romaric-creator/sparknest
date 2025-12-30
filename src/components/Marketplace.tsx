@@ -1,21 +1,12 @@
 // src/components/Marketplace.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import * as Icons from 'lucide-react';
-import { Search, ChevronRight, HelpCircle } from 'lucide-react';
+import { Search, ChevronRight } from 'lucide-react';
 import { getMarketplaceItems } from '../services/api';
+import Icon from './Icon';
+import { icons } from 'lucide-react';
 
-// Helper to dynamically render Lucide icons
-const DynamicIcon = ({ name, ...props }) => {
-    const IconComponent = Icons[name];
-
-    if (!IconComponent) {
-        // Return a default icon or null
-        return <HelpCircle {...props} />;
-    }
-
-    return <IconComponent {...props} />;
-};
+type IconName = keyof typeof icons;
 
 interface MarketplaceItem {
     id: number;
@@ -44,7 +35,7 @@ const Marketplace: React.FC = () => {
         const fetchMarketplaceItems = async () => {
             try {
                 setLoading(true);
-                const data = await getMarketplaceItems();
+                const data: MarketplaceItem[] = await getMarketplaceItems();
                 setMarketplaceItems(data);
 
                 // Extract unique categories
@@ -145,7 +136,7 @@ const Marketplace: React.FC = () => {
                                 >
                                     <div className="flex justify-between items-start mb-6">
                                         <div className="w-10 h-10 bg-brand-surface border border-brand-border rounded flex items-center justify-center">
-                                            <DynamicIcon name={item.icon} className="text-brand-accent" size={20} />
+                                            <Icon name={item.icon as IconName} className="text-brand-accent" size={20} />
                                         </div>
                                         {item.popular && (
                                             <span className="text-[10px] font-bold bg-brand-accent/10 text-brand-accent px-2 py-0.5 rounded border border-brand-accent/20 uppercase tracking-tighter">

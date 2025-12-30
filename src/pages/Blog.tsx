@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, User, ArrowRight, Search, Clock } from 'lucide-react';
+import { Calendar, ArrowRight, Search, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getArticles } from '../services/api';
 

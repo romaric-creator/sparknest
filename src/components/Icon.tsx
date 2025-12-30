@@ -1,22 +1,24 @@
 import React from 'react';
-import * as LucideIcons from 'lucide-react';
+import { icons } from 'lucide-react';
+import type { LucideProps } from 'lucide-react';
 
-interface IconProps {
-  name: keyof typeof LucideIcons; // Ensure name is a valid Lucide icon name
-  size?: number;
-  color?: string;
-  className?: string;
+// Get the icon names from the `icons` object
+type IconName = keyof typeof icons;
+
+interface IconProps extends LucideProps {
+  name: IconName;
 }
 
-const Icon: React.FC<IconProps> = ({ name, size = 24, color = 'currentColor', className = '' }) => {
-  const LucideIconComponent = LucideIcons[name];
+const Icon: React.FC<IconProps> = ({ name, ...props }) => {
+  const LucideIcon = icons[name];
 
-  if (!LucideIconComponent) {
-    console.warn(`Icon "${name}" not found in LucideIcons.`);
-    return null; // Or render a fallback icon
+  if (!LucideIcon) {
+    console.warn(`Icon "${name}" not found.`);
+    // Render a fallback icon or nothing
+    return null;
   }
 
-  return <LucideIconComponent size={size} color={color} className={className} />;
+  return <LucideIcon {...props} />;
 };
 
 export default Icon;

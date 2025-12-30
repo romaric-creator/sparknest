@@ -1,20 +1,11 @@
 // src/components/Services.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import * as Icons from 'lucide-react';
 import { getServices } from '../services/api';
+import Icon from './Icon';
+import { icons } from 'lucide-react';
 
-// Helper to dynamically render Lucide icons
-const DynamicIcon = ({ name, ...props }) => {
-    const IconComponent = Icons[name];
-
-    if (!IconComponent) {
-        // Return a default icon or null
-        return <Icons.HelpCircle {...props} />;
-    }
-
-    return <IconComponent {...props} />;
-};
+type IconName = keyof typeof icons;
 
 interface Service {
     id: number;
@@ -35,7 +26,7 @@ const Services: React.FC = () => {
         const fetchServices = async () => {
             try {
                 setLoading(true);
-                const data = await getServices();
+                const data: Service[] = await getServices();
                 setServices(data);
             } catch (err) {
                 setError('Impossible de charger les services.');
@@ -90,7 +81,7 @@ const Services: React.FC = () => {
                                 className="bg-white border border-brand-border rounded-2xl p-8 hover:border-brand-accent hover:shadow-lg hover:-translate-y-1 group"
                             >
                                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 flex items-center justify-center mb-6 group-hover:from-emerald-100 group-hover:to-emerald-200">
-                                    <DynamicIcon name={service.icon} className="w-7 h-7 text-brand-accent" />
+                                    <Icon name={service.icon as IconName} className="w-7 h-7 text-brand-accent" />
                                 </div>
                                 <h3 className="text-xl font-bold text-brand-text mb-3">{service.title}</h3>
                                 <p className="text-brand-muted text-sm leading-relaxed">{service.description}</p>
