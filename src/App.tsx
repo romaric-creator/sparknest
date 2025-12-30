@@ -5,7 +5,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
-import Team from './pages/Team';
 import LegalNotice from './pages/LegalNotice';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Marketplace from './components/Marketplace';
@@ -22,7 +21,6 @@ const App: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/team" element={<Team />} />
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/legal" element={<LegalNotice />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />

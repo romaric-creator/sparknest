@@ -70,7 +70,7 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-3 text-brand-muted text-sm">
                 <MapPin size={16} className="text-brand-accent" />
-                Paris, France
+                Douala, Cameroun
               </li>
             </ul>
           </div>

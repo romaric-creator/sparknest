@@ -31,7 +31,6 @@ const Header: React.FC = () => {
           <li><a href="/#projects" className="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors duration-200">Projets</a></li>
           <li><Link to="/marketplace" className="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors duration-200">Marketplace</Link></li>
           <li><Link to="/blog" className="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors duration-200">Blog</Link></li>
-          <li><Link to="/team" className="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors duration-200">L'Équipe</Link></li>
         </ul>
 
         {/* Desktop CTA */}
@@ -67,10 +66,9 @@ const Header: React.FC = () => {
                 <li><a href="/#projects" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Projets</a></li>
                 <li><Link to="/marketplace" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Marketplace</Link></li>
                 <li><Link to="/blog" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">Blog</Link></li>
-                <li><Link to="/team" onClick={toggleMenu} className="text-brand-text hover:text-brand-accent transition-colors">L'Équipe</Link></li>
                 <li>
                   <a
-                    href="mailto:christiantendainfo2006@gmail.com"
+                    href="mailto:christiantendainfo2006@gmail.com"  
                     onClick={toggleMenu}
                     className="btn-primary mt-4"
                   >
